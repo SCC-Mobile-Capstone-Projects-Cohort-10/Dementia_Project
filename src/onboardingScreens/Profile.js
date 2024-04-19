@@ -140,7 +140,7 @@ export default function Profile({ navigation }) {
       <View style={{ paddingLeft: 50, paddingTop: 10, width: 350 }}>
       <TextInput
         style={{borderBottomWidth:1,marginBottom:20,fontSize:18,backgroundColor:'white'}}
-        placeholder="Select Gender"
+        placeholder="Select role"
         //left={<TextInput.Icon icon={'user'} type="material-community"/>}
         mode='flat'
         underlineColor='black'
