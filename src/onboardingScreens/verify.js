@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
-import { View, TextInput, Button, StyleSheet, SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, StyleSheet, SafeAreaView, Text, TouchableOpacity,Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SharedStateContext from '../SharedStateProvider';
 const VerificationCodeInput = ({ navigation, route }) => {
@@ -26,7 +26,10 @@ const VerificationCodeInput = ({ navigation, route }) => {
     console.log("Entered number", enteredCode);
     console.log("Shared state", sharedState);
     if (Number(enteredCode) === Number(sharedState.join(""))) {
-      navigation.navigate('CreateAccount')
+      Alert.alert('Success', ' digit number is correct.');
+      navigation.navigate('WelcomeScreen')
+    }else{
+      Alert.alert('Error', 'Please enter a correct digit number.');
     }
   };
   useEffect(() => {

@@ -3,19 +3,27 @@ import { View, Text, TextInput, TouchableOpacity, Modal, FlatList, StyleSheet, D
 import { AntDesign } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 import SharedStateContext from '../SharedStateProvider';
+import { firebaseaAuth } from '../../FirebaseConfig';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {showMessage} from 'react-native-flash-message';
+
+import { getAuth,signInWithPhoneNumber } from 'firebase/auth';
+
+ 
 
     
 const width = Dimensions.get('screen').width
 const height = Dimensions.get('screen').height
-const CountryPickerTextInput = ({navigation}) => {
+const CountryPickerTextInput = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const {sharedState, setSharedState} = useContext(SharedStateContext);
     const [validNumber, setValidNumber] = useState(false)
+    const [isloading,setIsloading] = useState(false)
     // const [verificationId, setVerificationId] = useState('');
     // const [verificationCode, setVerificationCode] = useState('');
-
+    const auth=firebaseaAuth;
     const  navigate =useNavigation();
     const countries = [
         { name: 'USA', code: '+1' },
@@ -77,17 +85,51 @@ const CountryPickerTextInput = ({navigation}) => {
 
     const validatePhoneNumber = () => {
         const phoneRegex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
-
+         
         if (phoneRegex.test(phoneNumber)) {
             Alert.alert('Success', 'Phone number is valid.');
             console.log('sucessfully')
+            // navigation.navigate('VerificationCodeInput')
         } else {
             Alert.alert('Error', 'Please enter a valid phone number.');
             console.log('unsucessfully')
         }
         setValidNumber(true);
-        navigation.navigate('VerificationCodeInput')
+        
     };
+    const handlesubmit = async () => {
+        if (validatePhoneNumber()) {
+            console.log('form submitted', phoneNumber)
+    
+            try {
+                const response = await signInWithPhoneNumber(getAuth(),phoneNumber)
+                console.log(response)
+                console.log('your now signed in')
+                showMessage({
+                    message: 'phone-number successfully',
+                    description: 'your now registered phone-number',
+                    type: 'success',
+                    icon: 'success',
+                    duration: 3000
+                })
+                navigation.navigate('VerificationCodeInput')
+            } catch (error) {
+                console.log(error)
+                showMessage({
+                    message: "fail to register your phone-number",
+                    description: error.code.toString(),
+                    type: 'danger',
+                    icon: 'danger',
+                    duration: 3000
+                })
+            } finally {
+                setIsloading(false)
+            }
+    
+        }
+    }
+    
+
     useEffect(() =>{
         if(validNumber){
             fetch('http://192.168.1.69:3000/send-sms', {
@@ -164,7 +206,7 @@ const CountryPickerTextInput = ({navigation}) => {
                 </Modal>
                 <View style={{ height: 80 }}></View>
                 <View style={styles.buttomtext}>
-                    <TouchableOpacity onPress={validatePhoneNumber} disabled={!selectedCountry || !phoneNumber}>
+                    <TouchableOpacity onPress={handlesubmit} disabled={!selectedCountry || !phoneNumber}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
                     </TouchableOpacity>
                 </View>

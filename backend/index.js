@@ -18,7 +18,7 @@ app.use(express.json());
 app.post('/send-sms', async(req, res) => {
   try {
     const to = req.body.to;
-    //const send_message = await vonage.sms.send({to, from, text});
+    // const send_message = await vonage.sms.send({to, from, text});
     return res.status(200).json({message: "Message sent successfully", data: randomFourDigitNumber})
   } catch (error) {
     console.log(error)
