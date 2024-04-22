@@ -21,6 +21,8 @@ import MemoryGameScreen from './PatientScreens/MindGames/MemoryGame';
 import CaregiverDashboard from './CareGiverScreens/CaregiverDashboardScreen';
 import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen';
 import Profile from './onboardingScreens/Profile';
+import { Settings } from 'react-native';
+import SettingsScreen from './PatientScreens/Settings';
 
 
 const Stack = createNativeStackNavigator();
@@ -49,6 +51,8 @@ export const MainNavigation = () => {
      <Stack.Screen name="GalleryScreen" component={GalleryScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="EducationScreen" component={EducationScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
+     <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
+
 
      <Stack.Screen name="CaregiverNotificationScreen" component={CaregiverNotificationScreen}  options={{headerShown: false}}/>
      </Stack.Navigator>
