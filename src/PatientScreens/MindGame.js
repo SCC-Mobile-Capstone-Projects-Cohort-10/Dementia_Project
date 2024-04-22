@@ -48,6 +48,8 @@ const MindGamesScreen = ({ navigation }) => {
         </TouchableOpacity>
       <Text style={styles.header}>Mind Stimulating Games</Text>
       </View>
+      <Text style={styles.subTitle}>Welcome to the Mind Stimulating Games Section! 🎮🧠</Text>
+      <Text style={styles.subTitlesection}>Prepare to embark on a journey of mental agility, creativity, and intrigue. Within these digital walls, we offer an eclectic assortment of brain-teasers, riddles, and puzzles—each designed to ignite your synapses and challenge your cognitive prowess. </Text>
       <View style={styles.gameListContainer}>
         {gamesData.map((game) => (
           <GameListItem key={game.id} game={game} onPress={handleGamePress} />
@@ -83,25 +85,37 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#f0f0f0',
+    padding: 19,
+    backgroundColor: '#d8bfd8',
     borderRadius: 8,
-    marginBottom: 10,
-    shadowColor: '#000', 
+    marginTop:30,
+    shadowColor: '#d8bfd8', 
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 3, 
   },
   gameIcon: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     marginRight: 10,
     borderRadius: 25, 
   },
   gameTitle: {
     fontSize: 18,
   },
+  subTitle:{
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  subTitlesection:{
+    fontSize: 9,
+    textAlign: 'center',
+    marginBottom: 10,
+    color: 'grey',
+  }
 });
 
 export default MindGamesScreen;
