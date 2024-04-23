@@ -20,6 +20,8 @@ import CaregiverNotificationScreen from './CareGiverScreens/CaregiverNotificatio
 import MemoryGameScreen from './PatientScreens/MindGames/MemoryGame';
 import CaregiverDashboard from './CareGiverScreens/CaregiverDashboardScreen';
 import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen';
+import RecordingScreen from './PatientScreens/RecordingScreen';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -48,6 +50,7 @@ export const MainNavigation = () => {
      <Stack.Screen name="GalleryScreen" component={GalleryScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="EducationScreen" component={EducationScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="CaregiverNotificationScreen" component={CaregiverNotificationScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
      </Stack.Navigator>
  )
 }

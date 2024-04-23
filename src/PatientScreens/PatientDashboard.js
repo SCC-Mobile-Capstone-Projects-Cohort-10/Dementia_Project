@@ -4,6 +4,8 @@ import { Calendar } from 'react-native-calendars';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 
+
+
 const MindGameCard = ({ game, onPress }) => {
   return (
     <TouchableOpacity style={styles.cardContainer} onPress={onPress}>
@@ -84,38 +86,33 @@ const PatientDashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.greetingText}>Hi Alice 👋</Text>
-        <Text style={styles.greetingSubText}>Welcome To Your Dashboard</Text>
+         <Text style={styles.greetingText}>Hi 👋</Text>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     
-        <Text style={styles.calendarTitle}>Your Calendar</Text>
-          <View style={styles.calendarCard}>
-            <Calendar
-             style={styles.calendar}
-              onDayPress={(day) => {
-                console.log('Selected day:', day);
-                onDayPress(); 
-              }}
-              markedDates={{
-                // Mark specific dates as needed (e.g., appointments)
-                '2024-04-10': { marked: true, dotColor: 'red' },
-                '2024-04-15': { marked: true, dotColor: 'green' },
-              }}
-      
-              theme={{
-                backgroundColor: '#f9f9f9',
-                calendarBackground: '#ffffff',
-                textSectionTitleColor: '#333333',
-                textSectionTitleDisabledColor: '#d9e1e8',
-                selectedDayBackgroundColor: '#0064D5',
-                selectedDayTextColor: '#ffffff',
-                todayTextColor: '#0064D5',
-                dayTextColor: '#333333',
-              }}
-            />
+        <Text style={styles.calendarTitle}>Multimedia Hub</Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <TouchableOpacity onPress={() => handleNavigation('CalendarScreen')}>
+          <View style={styles.card}>
+            <Text style={styles.cardText}>Calendar</Text>
+            <Icon name="event" size={24} color="#6F4E37" /> 
           </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('RecordingScreen')}>
+          <View style={styles.card}>
+            <Text style={styles.cardText}>Recording</Text>
+            <Icon name="mic" size={24} color="#6F4E37" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleNavigation('MusicScreen')}>
+          <View style={styles.card}>
+            <Text style={styles.cardText}>Music</Text>
+            <Icon name="music-note" size={24} color="#6F4E37" />
+          </View>
+        </TouchableOpacity>
+  </ScrollView>
+         
 
           {/* Mind Games */}
           <Text style={styles.subTitle}>Mind Stimulating Games</Text>
@@ -178,23 +175,43 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column', 
   },
+  calendarTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  scrollView: {
+    flexDirection: 'row',
+    paddingVertical: 10, 
+  },
+  card: {
+    width: 120, 
+    height: 120, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginHorizontal: 8,
+    padding: 10, 
+  },
+  cardText: {
+    fontSize: 18,
+    color: 'black',
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
   headerContainer: {
     backgroundColor: '#d8bfd8',
-    paddingVertical: 24,
+    paddingVertical: 29,
     paddingHorizontal: 16,
-    alignItems: 'center',  
+    alignItems: 'flex-start',  
     justifyContent: 'center', 
   },
   greetingText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-  },
-  greetingSubText: {
-    fontSize: 16,
-    color: '#333',
-    marginTop: 4,
-    alignItems:'left'
   },
   medicationsCard: {
     flex: 2,
@@ -209,22 +226,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     minHeight: 100,
     maxHeight: 140,
-  },
-  calendarCard: {
-    marginTop: 20,
-    marginHorizontal: 20,
-    padding: 10,
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 5,
-    minHeight: 140,
-    maxHeight: 400,
-  },
-  calendar: {
-    width: '100%', 
   },
   subTitle: {
     fontSize: 16,
@@ -257,19 +258,14 @@ const styles = StyleSheet.create({
     marginTop:20,
   },
   cardContainer: {
-    width: 100,
-    height: 120,
-    marginRight: 10,
+    width: 120, 
+    height: 120, 
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFFFFF',
     borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    elevation: 3,
-    marginBottom:10,
+    marginHorizontal: 8,
+    padding: 10, 
   },
   gameImage: {
     width: 100,
@@ -288,7 +284,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    paddingVertical: 10,
+    paddingVertical: 1,
     paddingHorizontal: 16,
   },
 });
