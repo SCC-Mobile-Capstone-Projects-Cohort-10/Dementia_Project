@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const GetStarted = ({ navigation }) => {
   const handleOnPressLetsGo = () => {
-    navigation.navigate('WelcomeScreen');
+    navigation.navigate('Profile');
   };
 
   return (
