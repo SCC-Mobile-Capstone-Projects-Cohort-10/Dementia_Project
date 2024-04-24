@@ -51,8 +51,6 @@ export const MainNavigation = () => {
      <Stack.Screen name="EducationScreen" component={EducationScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
      <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
-
-
      <Stack.Screen name="CaregiverNotificationScreen" component={CaregiverNotificationScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
      </Stack.Navigator>
