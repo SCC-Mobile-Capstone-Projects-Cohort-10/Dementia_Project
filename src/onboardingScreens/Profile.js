@@ -234,15 +234,15 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     gap :40,
     paddingHorizontal:30,
-    height:verticalScale(50)
+    height:verticalScale(30)
   },
   button: {
     backgroundColor: '#d8bfd8',
     
     borderRadius: 5,
-    width: 90,
+    width: scale(110),
     padding: 10,
-    height: 40,
+    height: verticalScale(40),
    
     alignItems: 'center'
   },
