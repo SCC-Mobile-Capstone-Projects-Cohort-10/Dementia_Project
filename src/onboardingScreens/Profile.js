@@ -5,6 +5,7 @@ import { FIRESTORE_DB, storage } from '../../FirebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useEffect, useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 //import { Icon } from 'react-native-elements';
 //import { Picker } from '@react-native-picker/picker';
@@ -142,16 +143,16 @@ export default function Profile({ navigation }) {
         <View>
         <Text style={[styles.profileText2, isDarkMode && styles.darkText]}>We now need to set up a Profile.please select option which best describes you:</Text>
      </View>
-      <Pressable onPress={handleChangeProfile} style={{ alignItems: 'center', borderRadius: 99, width: 200, height: 200, alignSelf: 'center', marginTop: 15 }}>
+      <Pressable onPress={handleChangeProfile} style={{ alignItems: 'center', borderRadius: 99, width:scale(160), height: verticalScale(180), alignSelf: 'center', marginTop: 15 }}>
 
         <Image source={{ uri: image }} style={{ width: '100%', height: '100%', borderRadius: 99 }} />
-        <Feather name='camera' size={30} color="white" style={{ backgroundColor: "black", position: 'absolute', right: -2, top: 130 }} />
+        <Feather name='camera' size={30} color="white" style={{ backgroundColor: "black", position: 'absolute', right: -2.98, top: 100 }} />
 
       </Pressable>
      
    
 
-       <View style={{ paddingLeft: 50, paddingTop: 20, width: 350 }}>
+       <View style={{ paddingLeft: 30, paddingTop: 10, width: scale(310)  }}>
       <TextInput
         placeholder='Name'
         value={name}
@@ -162,7 +163,7 @@ export default function Profile({ navigation }) {
         style={[styles.profileText, isDarkMode && styles.darkText]}   
       />
       </View>
-      <View style={{ paddingLeft: 50, paddingTop: 10, width: 350 }}>
+      <View style={{ paddingLeft: 30, paddingTop: 10, width: scale(310) }}>
       <TextInput
         placeholder='Address'
         mode='flat'
@@ -174,7 +175,7 @@ export default function Profile({ navigation }) {
       />
       </View>
 
-      <View style={{ paddingLeft: 50, paddingTop: 10, width: 350 }}>
+      <View style={{ paddingLeft: 30, paddingTop: 10, width: scale(310) }}>
       <TextInput
         placeholder='Role'
         mode='flat'
@@ -191,7 +192,7 @@ export default function Profile({ navigation }) {
       
     
      
-      <View style={{ paddingHorizontal: 20, paddingTop: 10, display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30, justifyContent: 'center', }}>
+      <View style={{ paddingHorizontal: 30,  display: 'flex', flexDirection: 'row', alignItems: 'baseline', gap: 30, justifyContent: 'center', }}>
 
 <TouchableOpacity style={styles.toggleButton} onPress={toggleDarkMode}>
   <Text style={styles.toggleButtonText}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</Text>
@@ -228,23 +229,25 @@ const styles = StyleSheet.create({
     
     
     alignItems: 'center',
-    paddingTop: 30,
+    paddingTop: 40,
     display:'flex',
     flexDirection:'row',
-    gap :10,
-    paddingHorizontal:20,
+    gap :40,
+    paddingHorizontal:30,
+    height:verticalScale(50)
   },
   button: {
     backgroundColor: '#d8bfd8',
-    padding: 10,
+    
     borderRadius: 5,
-    width: 180,
-    padding: 20,
-    height: 60,
+    width: 90,
+    padding: 10,
+    height: 40,
+   
     alignItems: 'center'
   },
   buttonText: {
-    height: 30,
+    
     textAlign: 'center',
 
 
@@ -259,14 +262,15 @@ const styles = StyleSheet.create({
   profileText: {
     
     borderBottomWidth:1,
-    marginBottom:10,
-    fontSize:18,
+    
+    fontSize:16,
     backgroundColor:'white',
     color: '#000000', // Light mode text color
   },
 
   containers: {
     flex: 1,
+    
 
     backgroundColor: '#FFFFFF', // Light mode background color
   },
@@ -274,7 +278,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000', // Dark mode background color
   },
   toggleButtonText: {
-
+    paddingTop:10,
     fontSize: 16,
     fontWeight: 'bold',
     fontSize: 20,
@@ -288,7 +292,7 @@ const styles = StyleSheet.create({
   },
 
   profileText2:{
-    fontSize:18,
+    fontSize:14,
     paddingHorizontal:20
 
   }
