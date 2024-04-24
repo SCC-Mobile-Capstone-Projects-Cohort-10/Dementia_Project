@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
-
+import { Video } from 'expo-av'; 
 
 const EducationScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -126,7 +126,18 @@ const EducationScreen = ({navigation}) => {
             </TouchableOpacity>
 
             {/* Add your instructional video component here */}
-            {/* For example, a WebView or a video player */}
+                {/* <Video
+                  source={{ uri: 'https://youtu.be/hgVMKEnkvHo?si=nyKAJSxu9-BWWY3j '}} 
+                  rate={1.0}
+                  volume={1.0}
+                  isMuted={false}
+                  resizeMode="contain"
+                  shouldPlay={false}
+                  isLooping={false}
+                  useNativeControls
+                  style={{ width: 300, height: 300 }}
+                />
+             */}
           </View>
         </View>
         </Modal>
@@ -143,9 +154,6 @@ const EducationScreen = ({navigation}) => {
       <TouchableOpacity onPress={() => handleNavigation('EducationScreen')}>
         <Icon name="school" size={30} color={activeTab === 'EducationScreen' ? '#000' : '#fff'} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-        <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
-      </TouchableOpacity>
     </View>
     </View>
   );
@@ -155,20 +163,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#f0f4f8',  
   },
   resourceContainer: {
     marginBottom: 20,
-    backgroundColor: '#f9f9f9',
-    padding: 30,
-    borderRadius: 5,
-},
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
+    backgroundColor: '#ffffff',  
+    padding: 20,
+    borderRadius: 10,  
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
-  content: {
-    fontSize: 16,
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333333',  
   },
   bottomContainer: {
     flexDirection: 'row',
@@ -183,52 +194,49 @@ const styles = StyleSheet.create({
     left: 0, 
     right: 0, 
 },
-centeredView: {
+  centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',  
   },
   modalView: {
-    margin: 20,
+    width: '90%',  
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalTitle: {
-    marginBottom: 15,
-    textAlign: "center",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
+    marginBottom: 20,
+    color: '#2C3E50',  
   },
   modalContentContainer: {
-    marginBottom: 15,
+    maxHeight: '80%', 
   },
   modalContent: {
     fontSize: 16,
-    color:'red',
+    color: '#4A4A4A',  
   },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-    borderRadius: 20,
+  closeButton: {
+    marginTop: 15,
     padding: 10,
-    elevation: 2
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#D35400',  
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+  video: {
+    width: '100%',
+    height: 200,
+    marginTop: 20,
   },
-  
 });
 
 export default EducationScreen;

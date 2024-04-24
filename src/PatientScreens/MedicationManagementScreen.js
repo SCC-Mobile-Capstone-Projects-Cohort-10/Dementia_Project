@@ -4,6 +4,14 @@ import { MaterialIcons as Icon } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
 const MedicationManagementScreen = ({ navigation }) => {
   const [medications, setMedications] = useState([
     { id: 1, name: 'Fabutaz Tab', time: new Date(), taken: false },
@@ -15,66 +23,31 @@ const MedicationManagementScreen = ({ navigation }) => {
 
   useEffect(() => {
     registerForPushNotificationsAsync();
-    Notifications.addNotificationReceivedListener(handleNotification);
-
-    const interval = setInterval(checkMedications, 60000); 
-    return () => clearInterval(interval);
-  }, [medications]);
+  }, []);
 
   const registerForPushNotificationsAsync = async () => {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
+    let settings = await Notifications.getPermissionsAsync();
+    if (!settings.granted) {
+      settings = await Notifications.requestPermissionsAsync();
     }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
+    console.log('Notification permissions status:', settings.status);
   };
 
   const scheduleNotification = async (medication) => {
-    const schedulingOptions = {
+    console.log(`Attempting to schedule notification for ${medication.name} at ${medication.time}`);
+    const identifier = await Notifications.scheduleNotificationAsync({
       content: {
         title: "Time to take medication",
         body: `It's time to take your ${medication.name}`,
-        data: { id: medication.id }, 
-        sound: true,
+        data: { id: medication.id },
       },
       trigger: {
         hour: medication.time.getHours(),
         minute: medication.time.getMinutes(),
-        second: 0,
         repeats: true,
       },
-    };
-    await Notifications.scheduleNotificationAsync(schedulingOptions);
-  };
-
-  const handleNotification = notification => {
-    const id = notification.request.content.data.id;
-    markAsTaken(id);
-  };
-
-  const markAsTaken = (id) => {
-    setMedications(current =>
-      current.map(med => {
-        if (med.id === id) {
-          return { ...med, taken: true };
-        }
-        return med;
-      })
-    );
-  };
-
-  const checkMedications = () => {
-    const now = new Date();
-    medications.forEach(med => {
-      if (med.time <= now && !med.taken) {
-        markAsTaken(med.id);
-      }
     });
+    console.log(`Scheduled with identifier: ${identifier}`);
   };
 
   const handleTimeSelect = (event, selectedDate) => {
@@ -91,7 +64,8 @@ const MedicationManagementScreen = ({ navigation }) => {
   const addMedication = () => {
     const newId = medications.length ? medications[medications.length - 1].id + 1 : 1;
     const newMed = { id: newId, name: newMedication, time: new Date(), taken: false };
-    setMedications([...medications, newMed]);
+    setMedications(prev => [...prev, newMed]);
+    scheduleNotification(newMed);
     setNewMedication('');
   };
 
@@ -99,6 +73,7 @@ const MedicationManagementScreen = ({ navigation }) => {
     Alert.alert("Confirm Deletion", "Are you sure you want to delete this medication?", [
       { text: "Cancel", style: "cancel" },
       { text: "OK", onPress: () => {
+        Notifications.cancelScheduledNotificationAsync(medications[index].id.toString()); // Cancel the notification
         const updatedMedications = medications.filter((_, i) => i !== index);
         setMedications(updatedMedications);
       }}
@@ -130,7 +105,7 @@ const MedicationManagementScreen = ({ navigation }) => {
             <Text style={styles.medicationTime}>{med.time.toLocaleTimeString()}</Text>
             <Text style={styles.medicationStatus}>{med.taken ? 'Taken' : 'Not Taken'}</Text>
           </TouchableOpacity>
-          <Button title="Delete" onPress={() => deleteMedication(index)} />
+          <Button title="Delete" onPress={() => deleteMedication(index)}  style={[styles.deleteMedication, { backgroundColor: '#600060' }]}/>
         </View>
       ))}
       {showPicker && (
@@ -164,7 +139,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     marginVertical: 12,
-    borderWidth: 1,
+    borderWidth: 1, 
     padding: 10,
   },
   medicationItem: {
@@ -185,6 +160,9 @@ const styles = StyleSheet.create({
   medicationStatus: {
     fontSize: 14,
     color: '#009688',
+  },
+  deleteMedication:{
+    backgroundColor:'yellow'
   },
 });
 

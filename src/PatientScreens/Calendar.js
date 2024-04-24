@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     color: '#333',
     textAlign: 'center',
    // marginTop: 20,
-   marginBottom: 40,
+  // marginBottom: 40,
   },
   introText: {
     fontSize: 13,

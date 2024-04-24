@@ -5,10 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const contacts = [
   { name: 'Jesse Pinkman', role: 'Caregiver', phone: '0785617388', image: require('../img/female.jpg') },
   { name: 'Parkinson Park', role: 'Psychiatrist', phone: '0783431312', image: require('../img/man1.jpg') },
-  { name: 'James', role: 'Son', phone: '0783431312', image: require('../img/man2.jpg') },
-  { name: 'Alice', role: 'Sister', phone: '0783431312', image: require('../img/me.jpg') },
-  { name: 'Jeremiah', role: 'Brother', phone: '0783431312', image: require('../img/jerry.jpg') },
-  { name: 'Peterson', role: 'Psychiatrist', phone: '0783431312', image: require('../img/maledoctor.jpg') },
+  { name: 'Charles', role: 'Supervisor', phone: '0783431312', image: require('../img/man2.jpg') },
+  { name: 'Alice', role: 'NanaSister', phone: '0783431312', image: require('../img/me.jpg') },
+  { name: 'Jeremiah', role: 'NanaBrother', phone: '0783431312', image: require('../img/jerry.jpg') },
 ];
 
 const CaregiverEmergency = ({navigation}) => {
@@ -75,54 +74,62 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F9F9F9',  
     padding: 20,
   },
   header: {
-    fontSize: 20,
+    fontSize: 24,  
     fontWeight: 'bold',
+    marginBottom: 20, 
+    color: '#333',  
   },
   contact: {
+    flexDirection: 'row',  
+    alignItems: 'center',  
+    backgroundColor: '#FFFFFF', 
     marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    padding: 15,
+    borderRadius: 10,  
+    shadowColor: '#000',  
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 3,
   },
   contactInfo: {
+    flex: 1,  
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
   },
   contactImageContainer: {
-    marginRight: 10,
+    marginRight: 15,
   },
   contactImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60, 
+    height: 60,
+    borderRadius: 30,  
   },
   contactDetails: {
     flex: 1,
+    marginRight: 10,  
   },
   contactName: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 2, 
   },
   contactRole: {
-    fontSize: 16,
-    color: '#666',
+    fontSize: 14,  
+    color: '#555',  
   },
   bottomContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    backgroundColor: '#d8bfd8', 
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    padding: 10,  
-    // height: 20 
+    backgroundColor: '#ececec',  
+    borderTopWidth: 1, 
+    borderTopColor: '#ddd',
+    paddingVertical: 10,
+    paddingHorizontal: 20,  
   }
 });
 

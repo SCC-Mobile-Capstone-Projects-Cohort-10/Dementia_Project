@@ -86,7 +86,7 @@ const PatientDashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-         <Text style={styles.greetingText}>Hi 👋</Text>
+       <Text style={styles.greetingText}>Hi, Welcome  👋</Text> 
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -96,19 +96,19 @@ const PatientDashboard = ({navigation}) => {
         <TouchableOpacity onPress={() => handleNavigation('CalendarScreen')}>
           <View style={styles.card}>
             <Text style={styles.cardText}>Calendar</Text>
-            <Icon name="event" size={24} color="#6F4E37" /> 
+            <Icon name="event" size={34} color="#6F4E37" /> 
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('RecordingScreen')}>
           <View style={styles.card}>
             <Text style={styles.cardText}>Recording</Text>
-            <Icon name="mic" size={24} color="#6F4E37" />
+            <Icon name="mic" size={34} color="#6F4E37" />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('MusicScreen')}>
+        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
           <View style={styles.card}>
-            <Text style={styles.cardText}>Music</Text>
-            <Icon name="music-note" size={24} color="#6F4E37" />
+            <Text style={styles.cardText}>Make Call</Text>
+            <Icon name="call" size={34} color="#6F4E37" />
           </View>
         </TouchableOpacity>
   </ScrollView>
@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   headerContainer: {
-    backgroundColor: '#d8bfd8',
-    paddingVertical: 29,
+    backgroundColor: 'white',
+    paddingVertical: 19,
     paddingHorizontal: 16,
     alignItems: 'flex-start',  
     justifyContent: 'center', 
