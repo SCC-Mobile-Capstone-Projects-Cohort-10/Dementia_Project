@@ -171,6 +171,7 @@ const PatientDashboard = ({navigation}) => {
         <TouchableOpacity onPress={() => handleNavigation('Settings')}>
           <Icon name="settings" size={30} color={activeTab === 'Settings' ? '#000' : '#fff'} />
         </TouchableOpacity>
+
       </View>
     </View>
   );

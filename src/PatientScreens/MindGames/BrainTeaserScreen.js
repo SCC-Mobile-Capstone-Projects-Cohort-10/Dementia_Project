@@ -77,11 +77,12 @@ const BrainTeaserScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <MaterialIcons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.title}>Brain Teaser</Text>
-        <TouchableOpacity onPress={startGame} style={styles.startButton}>
+        <Text style={styles.title}>Welcome to the Brainteaser Section! </Text>
+      </View>
+      <Text style={styles.section}>Here, we present an intriguing word-guessing game that will challenge your lexicon and ignite your imagination. 🧩🔍</Text>
+      <TouchableOpacity onPress={startGame} style={styles.startButton}>
           <Text>Start Game</Text>
         </TouchableOpacity>
-      </View>
       {timerRunning && <Text style={styles.timer}>Timer: {timer}</Text>}
       <Text style={styles.question}>{questions[currentQuestionIndex].question}</Text>
       {questions[currentQuestionIndex].options.map((option, index) => (
@@ -106,20 +107,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'stretch',
-    marginBottom: 66,
+    marginBottom: 16,
     justifyContent: 'space-between',
   },
   title: {
-    fontSize: 24,
+    fontSize: 23,
     fontWeight: 'bold',
+  },
+  section:{
+    fontSize: 8,
+    marginTop: 10,
+    textAlign: 'center',
+    marginBottom:30,
   },
   backButton: {
     // Styles if needed
   },
   startButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#d8bfd8',
     padding: 10,
     borderRadius: 5,
+    marginBottom:20,
   },
   timer: {
     fontSize: 18,
@@ -127,12 +135,12 @@ const styles = StyleSheet.create({
   },
   question: {
     fontSize: 20,
-    marginBottom: 90,
+    marginBottom: 19,
     textAlign: 'center',
     
   },
   answerButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#d8bfd8',
     padding: 10,
     marginBottom: 20,
     borderRadius: 5,
