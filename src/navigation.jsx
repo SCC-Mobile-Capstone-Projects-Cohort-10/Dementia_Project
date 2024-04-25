@@ -28,9 +28,10 @@ import SettingsScreen from './PatientScreens/Settings';
 const Stack = createNativeStackNavigator();
 
 export const MainNavigation = () => {
+  const [sharedState, setSharedState] = useState([0,1,2,3]);
   return(
-
-  <Stack.Navigator initialRouteName="SplashScreen">
+    <SharedStateContext.Provider value={{ sharedState, setSharedState }}>        
+      <Stack.Navigator initialRouteName="CountryPickerTextInput">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
