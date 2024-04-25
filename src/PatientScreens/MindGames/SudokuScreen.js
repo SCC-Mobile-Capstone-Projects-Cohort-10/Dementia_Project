@@ -74,9 +74,10 @@ const SudokuScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.title}>Sudoku Game</Text>
-        <Text style={styles.scoreText}>Score: {score} Time: {timer}s</Text>
+        <Text style={styles.title}>Welcome to the Sudoku Game Section!</Text>
       </View>
+      <Text style={styles.sectionTitle}>Prepare to immerse yourself in the world of logic, numbers, and patterns. Sudoku, a captivating puzzle, awaits your strategic mind.</Text>
+      <Text style={styles.scoreText}>Score: {score} Time: {timer}s</Text>
       <View style={styles.grid}>
         {grid.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
@@ -118,7 +119,15 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingHorizontal: 10,
    // marginTop: 30,
-    marginBottom:79,
+    marginBottom:19,
+  },
+  sectionTitle:{
+    fontSize: 10,
+    //fontWeight: 'bold',
+    color:'gray',
+    alignItems:'center',
+    marginBottom: 17,
+        marginTop:10,
   },
   title: {
     fontSize: 24,
@@ -157,7 +166,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#d8bfd8',
     padding: 10,
     margin: 10,
     borderRadius: 5,

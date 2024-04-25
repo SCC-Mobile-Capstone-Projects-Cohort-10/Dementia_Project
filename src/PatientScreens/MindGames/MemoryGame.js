@@ -87,9 +87,9 @@ const MemoryGameScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <MaterialIcons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.title}>Memory Game</Text>
-        <Text style={styles.scoreText}>Score: {score}</Text>
+        <Text style={styles.title}>Welcome to Memory Game Section</Text>
       </View>
+      <Text style={styles.scoreText}>Score: {score}</Text>
       <Text style={styles.timerText}>Time: {timeElapsed} sec</Text>
       <FlatList
         data={cards}

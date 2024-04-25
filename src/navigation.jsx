@@ -16,14 +16,13 @@ import CaregiverCalendar from './CareGiverScreens/CaregiverCalendar';
 import CaregiverEmergency from './CareGiverScreens/CaregiverEmergency';
 import GalleryScreen from './PatientScreens/GalleryScreen';
 import EducationScreen from './CareGiverScreens/EducationScreen';
-import CaregiverNotificationScreen from './CareGiverScreens/CaregiverNotificationScreen';
 import MemoryGameScreen from './PatientScreens/MindGames/MemoryGame';
 import CaregiverDashboard from './CareGiverScreens/CaregiverDashboardScreen';
 import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen';
-import CountryPickerTextInput from './onboardingScreens/phone';
-import VerificationCodeInput from './onboardingScreens/verify';
-import SharedStateContext from './SharedStateProvider';
-import { useState } from 'react';
+import RecordingScreen from './PatientScreens/RecordingScreen';
+import Profile from './onboardingScreens/Profile';
+import SettingsScreen from './PatientScreens/Settings';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -52,12 +51,10 @@ export const MainNavigation = () => {
      <Stack.Screen name="PatientLocation" component={PatientLocation}  options={{headerShown: false}}/>
      <Stack.Screen name="GalleryScreen" component={GalleryScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="EducationScreen" component={EducationScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="CaregiverNotificationScreen" component={CaregiverNotificationScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="CountryPickerTextInput" component={CountryPickerTextInput}  options={{headerShown: false}}/>
-     <Stack.Screen name="VerificationCodeInput" component={VerificationCodeInput}  options={{headerShown: false}}/>
-     <Stack.Screen name="SharedStateContext" component={SharedStateContext}  options={{headerShown: false}}/>
-      </Stack.Navigator>
-    </SharedStateContext.Provider>
+     <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
+     <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
+     </Stack.Navigator>
  )
 }
 

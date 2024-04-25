@@ -97,9 +97,6 @@ const PatientLocation = ({navigation}) => {
       <TouchableOpacity onPress={() => handleNavigation('PatientLocation')}>
         <Icon name="location-on" size={30} color={activeTab === 'PatientLocation' ? '#000' : '#fff'} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-        <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
-      </TouchableOpacity>
       </View>
       </View>
   );

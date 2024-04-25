@@ -29,7 +29,7 @@ export default function ReminderScreen({ route, navigation }) {
         value={reminderTitle}
         onChangeText={setReminderTitle}
       />
-      <Button title="Save Reminder" onPress={handleSaveReminder} />
+      <Button  color="#d8bfd8"title="Save Reminder" onPress={handleSaveReminder} />
 
       {/* Display saved reminder */}
       {savedReminder && (
@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop:20,
   },
   input: {
     height: 40,
@@ -58,9 +59,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    marginTop:40,
   },
   savedReminder: {
     fontSize: 16,
-    color: 'green',
+    color: '#d8bfd8',
   },
 });

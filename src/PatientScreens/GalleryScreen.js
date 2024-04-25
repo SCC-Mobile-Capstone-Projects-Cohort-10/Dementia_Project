@@ -15,9 +15,9 @@ const images = [
     { id: '11', name: 'Nana Thesis defense day', image: require('../img/nanathesisday.jpg') },
 ];
 
-const screenWidth = Dimensions.get('window').width;
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-const GalleryScreen = () => {
+const GalleryScreen = ({navigation}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollViewRef = useRef(null);
 
@@ -38,6 +38,10 @@ const GalleryScreen = () => {
             animated: true,
         });
     };
+
+    const handleBack = () => {
+        navigation.navigate('PatientDashboard');
+      };
 
     return (
         <View style={styles.container}>
@@ -67,6 +71,9 @@ const GalleryScreen = () => {
                 <TouchableOpacity onPress={handleNextSlide} style={styles.button}>
                     <Text style={styles.buttonText}>Next</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={handleBack} style={styles.button}>
+                 <Text style={styles.buttonText}>Back</Text>
+                 </TouchableOpacity>
             </View>
         </View>
     );
@@ -75,26 +82,28 @@ const GalleryScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0f0f0', 
+        backgroundColor: '#f0f0f0',
     },
     scrollViewContainer: {
         alignItems: 'center',
     },
     imageContainer: {
         width: screenWidth,
-        height: 650, 
+        height: screenHeight * 0.85, // 85% of the screen height
         alignItems: 'center',
         justifyContent: 'center',
     },
     image: {
         width: screenWidth,
-        height: '80%', 
+        height: '100%',
     },
     title: {
         color: '#000',
         fontSize: 20,
         marginTop: 10,
         fontWeight: 'bold',
+        textAlign: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', 
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -110,7 +119,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 18,
-        color: '#ffffff', 
+        color: '#ffffff',
         textAlign: 'center'
     },
 });

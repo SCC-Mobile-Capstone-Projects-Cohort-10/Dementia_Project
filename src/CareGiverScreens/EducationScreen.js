@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
-
+import { Video } from 'expo-av'; 
 
 const EducationScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -38,8 +38,9 @@ const EducationScreen = ({navigation}) => {
         '*Early stage\n'+
         '*Middle stage\n'+
         '*Late stage',
-
+        image: require('../img/Boredom-blog-banner.jpg'),
     },
+
     {
       title: 'Communication Strategies',
       content:
@@ -51,6 +52,7 @@ const EducationScreen = ({navigation}) => {
       '- Create a supportive environment.\n' +
       '- Avoid arguments and corrections.\n' +
       '- Use positive reinforcement.',
+      image: require('../img/dementiapatient.jpg'),
     },
     {
       title: 'Creating a Safe Environment',
@@ -79,8 +81,16 @@ const EducationScreen = ({navigation}) => {
         'Label cupboards and drawers to help with memory loss.\n' +
         'Avoid clutter in the kitchen.\n' +
         'Ensure that appliances are safe and easy to use.',
+        image: require('../img/dementiapuzzle.jpg'),
     },
-   
+  
+      {
+        type: 'video',
+        title: 'Dementia Care Techniques',
+        videoUri: 'https://youtu.be/q_sWiwI3yP0',
+        image: require('../img/dementia-care-at-home.jpg'),
+      }
+      
   ];
 
   const handleResourceClick = (resource) => {
@@ -93,43 +103,38 @@ const EducationScreen = ({navigation}) => {
     setCurrentResource(null);
   };
 
+ 
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+    <ScrollView>
       {resources.map((resource, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.resourceContainer}
-            onPress={() => handleResourceClick(resource)}
-            >
-            <Text style={styles.title}>{resource.title}</Text>
+        <TouchableOpacity
+          key={index}
+          style={styles.resourceContainer}
+          onPress={() => handleResourceClick(resource)}>
+          <Image source={resource.image} style={styles.resourceImage} />
+          <Text style={styles.title}>{resource.title}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={handleCloseModal}>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalTitle}>{currentResource?.title}</Text>
+          <ScrollView style={styles.modalContentContainer}>
+            <Text style={styles.modalContent}>{currentResource?.content}</Text>
+          </ScrollView>
+          <TouchableOpacity onPress={handleCloseModal}>
+            <Text style={styles.closeButton}>Close</Text>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      {/* Modal for displaying resource content */}
-      <Modal
-       animationType="slide"
-       transparent={true}
-       visible={modalVisible}
-       onRequestClose={handleCloseModal}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>{currentResource?.title}</Text>
-            <ScrollView style={styles.modalContentContainer}>
-              <Text style={styles.modalContent}>{currentResource?.content}</Text>
-            </ScrollView>
-           {/* Close button */}
-       <TouchableOpacity onPress={handleCloseModal}>
-              <Text style={styles.closeButton}>Close</Text>
-            </TouchableOpacity>
-
-            {/* Add your instructional video component here */}
-            {/* For example, a WebView or a video player */}
-          </View>
         </View>
-        </Modal>
+      </View>
+    </Modal>
       <View style={styles.bottomContainer}>
        <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
         <Icon name="home" size={30} color={activeTab === 'CaregiverDashboard' ? '#000' : '#fff'} />
@@ -143,9 +148,6 @@ const EducationScreen = ({navigation}) => {
       <TouchableOpacity onPress={() => handleNavigation('EducationScreen')}>
         <Icon name="school" size={30} color={activeTab === 'EducationScreen' ? '#000' : '#fff'} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-        <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
-      </TouchableOpacity>
     </View>
     </View>
   );
@@ -155,20 +157,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-  },
+    backgroundColor: '#f0f4f8',  
+},
   resourceContainer: {
     marginBottom: 20,
-    backgroundColor: '#f9f9f9',
-    padding: 30,
-    borderRadius: 5,
-},
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
+    backgroundColor: '#ffffff',  
+    padding: 20,
+    borderRadius: 10,  
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
-  content: {
-    fontSize: 16,
+  resourceImage: {
+    width: '100%',
+    height: 200,  
+    borderRadius: 10,  
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333333',  
   },
   bottomContainer: {
     flexDirection: 'row',
@@ -183,52 +193,50 @@ const styles = StyleSheet.create({
     left: 0, 
     right: 0, 
 },
-centeredView: {
+  centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',  
   },
   modalView: {
-    margin: 20,
+    width: '90%',  
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalTitle: {
-    marginBottom: 15,
-    textAlign: "center",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
+    marginBottom: 20,
+    color: '#2C3E50',  
   },
   modalContentContainer: {
-    marginBottom: 15,
+    maxHeight: '80%', 
   },
   modalContent: {
     fontSize: 16,
-    color:'red',
+    color: '#4A4A4A',  
   },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-    borderRadius: 20,
+  closeButton: {
+    marginTop: 15,
     padding: 10,
-    elevation: 2
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: '#D35400',  
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  
+  video: {
+    width: '100%',
+    height: 200,    
+    marginTop: 20,
+   }
+   
 });
 
 export default EducationScreen;
