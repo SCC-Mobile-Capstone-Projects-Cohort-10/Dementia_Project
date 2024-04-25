@@ -85,8 +85,10 @@ const PatientDashboard = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-       <Text style={styles.greetingText}>Hi, Welcome  👋</Text> 
+       {/* Top Header with Icons */}
+       <View style={styles.topHeader}>
+        <Text style={styles.greetingText}>Hi, Welcome 👋</Text>
+        <Icon name="notifications" size={30} color="#333" onPress={() => {}} />
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -177,7 +179,19 @@ const PatientDashboard = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column', 
+    flexDirection: 'column',
+  },
+  topHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  greetingText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
   },
   calendarTitle: {
     fontSize: 22,

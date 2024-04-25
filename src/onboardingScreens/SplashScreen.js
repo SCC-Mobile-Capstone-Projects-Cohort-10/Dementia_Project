@@ -22,7 +22,7 @@ const SplashScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image source={require('../img/logo.png')} style={styles.logo} />
-      <Text style={styles.title}>Dementia Care App</Text>
+      <Text style={styles.title}>Dementia Care App Rwanda</Text>
     </View>
   );
 };

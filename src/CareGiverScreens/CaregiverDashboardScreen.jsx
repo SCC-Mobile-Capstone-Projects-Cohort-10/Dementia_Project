@@ -57,7 +57,7 @@ const CaregiverDashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
     <View style={styles.header}>
-      <Text style={styles.headerText}>Welcome Sarah  👋</Text>
+      <Text style={styles.headerText}>Hi, Welcome 👋</Text>
       <TouchableOpacity 
       style={styles.notificationIcon}
       onPress={() => navigation.navigate('CaregiverNotificationScreen')}  

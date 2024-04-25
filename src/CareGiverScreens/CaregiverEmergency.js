@@ -27,44 +27,36 @@ const CaregiverEmergency = ({navigation}) => {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent} scrollEnabled={false}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Icon 
+          name="arrow-left" 
+          size={44} 
+          color="#000" 
+          onPress={() => navigation.goBack()} 
+          style={styles.backIcon} 
+        />
         <Text style={styles.header}>Emergency Contacts</Text>
-        {contacts.map((contact, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.contact}
-            onPress={() => handleCall(contact.phone)}>
-            <View style={styles.contactInfo}>
-              <View style={styles.contactImageContainer}>
-                <Image style={styles.contactImage} source={contact.image} />
-              </View>
-              <View style={styles.contactDetails}>
-                <Text style={styles.contactName}>{contact.name}</Text>
-                <Text style={styles.contactRole}>{contact.role}</Text>
-              </View>
-              <Icon name="phone" size={20} color="#d8bfd8" /> 
-            </View>
-          </TouchableOpacity>
-        ))}
       </View>
-      <View style={styles.bottomContainer}>
-       <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
-          <Icon name="home" size={30} color={activeTab === 'CaregiverDashboard' ? '#000' : '#fff'} />
+      {contacts.map((contact, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.contact}
+          onPress={() => handleCall(contact.phone)}>
+          <View style={styles.contactInfo}>
+            <View style={styles.contactImageContainer}>
+              <Image style={styles.contactImage} source={contact.image} />
+            </View>
+            <View style={styles.contactDetails}>
+              <Text style={styles.contactName}>{contact.name}</Text>
+              <Text style={styles.contactRole}>{contact.role}</Text>
+            </View>
+            <Icon name="phone" size={20} color="#d8bfd8" /> 
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('CaregiverEmergency')}>
-          <Icon name="call" size={30} color={activeTab === 'CaregiverEmergency' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('CaregiverCalendar')}>
-          <Icon name="event" size={30} color={activeTab === 'CaregiverCalendar' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('EducationScreen')}>
-        <Icon name="school" size={30} color={activeTab === 'EducationScreen' ? '#000' : '#fff'} />
-      </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-          <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
-        </TouchableOpacity>
+      ))}
     </View>
-    </ScrollView>
+  </ScrollView>
   );
 };
 
@@ -76,6 +68,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F9F9F9',  
     padding: 20,
+  },
+  headerContainer: {
+    flexDirection: 'row',   
+    alignItems: 'center',   
+    marginBottom: 20,       
+  },
+  backIcon: {
+    marginRight: 10,       
   },
   header: {
     fontSize: 24,  
@@ -122,15 +122,6 @@ const styles = StyleSheet.create({
     fontSize: 14,  
     color: '#555',  
   },
-  bottomContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    backgroundColor: '#ececec',  
-    borderTopWidth: 1, 
-    borderTopColor: '#ddd',
-    paddingVertical: 10,
-    paddingHorizontal: 20,  
-  }
 });
 
 export default CaregiverEmergency;
