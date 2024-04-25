@@ -17,7 +17,7 @@ const images = [
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
-const GalleryScreen = () => {
+const GalleryScreen = ({navigation}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollViewRef = useRef(null);
 
@@ -38,6 +38,10 @@ const GalleryScreen = () => {
             animated: true,
         });
     };
+
+    const handleBack = () => {
+        navigation.navigate('PatientDashboard');
+      };
 
     return (
         <View style={styles.container}>
@@ -67,6 +71,9 @@ const GalleryScreen = () => {
                 <TouchableOpacity onPress={handleNextSlide} style={styles.button}>
                     <Text style={styles.buttonText}>Next</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={handleBack} style={styles.button}>
+                 <Text style={styles.buttonText}>Back</Text>
+                 </TouchableOpacity>
             </View>
         </View>
     );

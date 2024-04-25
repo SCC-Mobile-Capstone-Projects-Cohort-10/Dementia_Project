@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-nati
 import { Calendar } from 'react-native-calendars';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
-const { width: screenWidth } = Dimensions.get('window'); // Get screen width
+const { width: screenWidth } = Dimensions.get('window'); 
 
 export default function CaregiverCalendar({ navigation }) {
   const [activeTab, setActiveTab] = useState('CalendarScreen');
@@ -41,27 +41,21 @@ export default function CaregiverCalendar({ navigation }) {
 
   return (
     <View style={styles.container}>
-     <Text style={styles.introTitle}> Let’s work together to organize your life</Text>
-  <Text style={styles.introText}>
-  Whether it’s setting up appointments, planning dinner dates, or managing important events, we’ve got you covered 🌟📅s
-  </Text>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={34} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.introTitle}>Let’s work together to organize your life</Text>
+      </View>
+      <Text style={styles.introText}>
+        Whether it’s setting up appointments, planning dinner dates, or managing important events, we’ve got you covered 🌟📅
+      </Text>
       <View style={styles.calendarContainer}>
         <Calendar
           onDayPress={handleDayPress}
           markedDates={markedDates}
           style={styles.calendar}
         />
-      </View>
-      <View style={styles.bottomContainer}>
-        <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
-          <Icon name="home" size={30} color={activeTab === 'CaregiverDashboard' ? '#000' : '#ddd'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('CaregiverEmergency')}>
-          <Icon name="call" size={30} color={activeTab === 'CaregiverEmergency' ? '#000' : '#ddd'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('CaregiverCalendar')}>
-          <Icon name="event" size={30} color={activeTab === 'CaregiverCalendar' ? '#000' : '#ddd'} />
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -70,22 +64,24 @@ export default function CaregiverCalendar({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 16,
-    backgroundColor: '#f9f9f9',
+    padding: 10,
+  },
+  headerContainer: {
+    flexDirection: 'row', 
     alignItems: 'center', 
+    marginBottom: 20,     
   },
   introTitle: {
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
-   // marginTop: 20,
-   //marginBottom: 40,
+    marginLeft: 10, 
   },
   introText: {
-    fontSize: 13,
-    textAlign: 'center',
-    color: '#666',
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  calendarContainer: {
+    marginTop: 20,
   },
   calendarContainer: {
   marginTop:40,
@@ -104,6 +100,6 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 45,
     position: 'absolute',
-    bottom: 0, // Keeps it at the bottom
+    bottom: 0, 
   },
 });

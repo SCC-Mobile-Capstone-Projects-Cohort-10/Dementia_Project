@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { Video } from 'expo-av'; 
 
@@ -38,8 +38,9 @@ const EducationScreen = ({navigation}) => {
         '*Early stage\n'+
         '*Middle stage\n'+
         '*Late stage',
-
+        image: require('../img/Boredom-blog-banner.jpg'),
     },
+
     {
       title: 'Communication Strategies',
       content:
@@ -51,6 +52,7 @@ const EducationScreen = ({navigation}) => {
       '- Create a supportive environment.\n' +
       '- Avoid arguments and corrections.\n' +
       '- Use positive reinforcement.',
+      image: require('../img/dementiapatient.jpg'),
     },
     {
       title: 'Creating a Safe Environment',
@@ -79,8 +81,16 @@ const EducationScreen = ({navigation}) => {
         'Label cupboards and drawers to help with memory loss.\n' +
         'Avoid clutter in the kitchen.\n' +
         'Ensure that appliances are safe and easy to use.',
+        image: require('../img/dementiapuzzle.jpg'),
     },
-   
+  
+      {
+        type: 'video',
+        title: 'Dementia Care Techniques',
+        videoUri: 'https://youtu.be/q_sWiwI3yP0',
+        image: require('../img/dementia-care-at-home.jpg'),
+      }
+      
   ];
 
   const handleResourceClick = (resource) => {
@@ -93,54 +103,38 @@ const EducationScreen = ({navigation}) => {
     setCurrentResource(null);
   };
 
+ 
+
   return (
     <View style={styles.container}>
-      <ScrollView>
+    <ScrollView>
       {resources.map((resource, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.resourceContainer}
-            onPress={() => handleResourceClick(resource)}
-            >
-            <Text style={styles.title}>{resource.title}</Text>
+        <TouchableOpacity
+          key={index}
+          style={styles.resourceContainer}
+          onPress={() => handleResourceClick(resource)}>
+          <Image source={resource.image} style={styles.resourceImage} />
+          <Text style={styles.title}>{resource.title}</Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={handleCloseModal}>
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalTitle}>{currentResource?.title}</Text>
+          <ScrollView style={styles.modalContentContainer}>
+            <Text style={styles.modalContent}>{currentResource?.content}</Text>
+          </ScrollView>
+          <TouchableOpacity onPress={handleCloseModal}>
+            <Text style={styles.closeButton}>Close</Text>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-      {/* Modal for displaying resource content */}
-      <Modal
-       animationType="slide"
-       transparent={true}
-       visible={modalVisible}
-       onRequestClose={handleCloseModal}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>{currentResource?.title}</Text>
-            <ScrollView style={styles.modalContentContainer}>
-              <Text style={styles.modalContent}>{currentResource?.content}</Text>
-            </ScrollView>
-           {/* Close button */}
-       <TouchableOpacity onPress={handleCloseModal}>
-              <Text style={styles.closeButton}>Close</Text>
-            </TouchableOpacity>
-
-            {/* Add your instructional video component here */}
-                {/* <Video
-                  source={{ uri: 'https://youtu.be/hgVMKEnkvHo?si=nyKAJSxu9-BWWY3j '}} 
-                  rate={1.0}
-                  volume={1.0}
-                  isMuted={false}
-                  resizeMode="contain"
-                  shouldPlay={false}
-                  isLooping={false}
-                  useNativeControls
-                  style={{ width: 300, height: 300 }}
-                />
-             */}
-          </View>
         </View>
-        </Modal>
+      </View>
+    </Modal>
       <View style={styles.bottomContainer}>
        <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
         <Icon name="home" size={30} color={activeTab === 'CaregiverDashboard' ? '#000' : '#fff'} />
@@ -164,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#f0f4f8',  
-  },
+},
   resourceContainer: {
     marginBottom: 20,
     backgroundColor: '#ffffff',  
@@ -175,6 +169,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
+  },
+  resourceImage: {
+    width: '100%',
+    height: 200,  
+    borderRadius: 10,  
   },
   title: {
     fontSize: 20,
@@ -234,9 +233,10 @@ const styles = StyleSheet.create({
   },
   video: {
     width: '100%',
-    height: 200,
+    height: 200,    
     marginTop: 20,
-  },
+   }
+   
 });
 
 export default EducationScreen;

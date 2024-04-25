@@ -12,7 +12,7 @@ const GetStarted = ({ navigation }) => {
       <Image source={require('../img/dementiam.jpg')} style={styles.topImage} />
       <Text style={styles.welcome}>Welcome</Text>
       <Text style={styles.description}>
-        Your personalized Dementia Care App
+        Your personalized Dementia Care App Rwanda
       </Text>
       <Text style={styles.detail}>
         We're here to support you in managing your daily routines, medication schedules, appointments, and memory enhancement activities.
