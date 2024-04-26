@@ -29,7 +29,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
     console.log("Shared state", sharedState);
     if (Number(enteredCode) === Number(sharedState.join(""))) {
       Alert.alert('Success', ' digit number is correct.');
-      navigation.navigate('WelcomeScreen')
+      navigation.navigate('Profile')
     }else{
       Alert.alert('Error', 'Please enter a correct digit number.');
     }
