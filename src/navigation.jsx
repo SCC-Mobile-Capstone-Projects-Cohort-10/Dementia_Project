@@ -22,16 +22,12 @@ import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen';
 import RecordingScreen from './PatientScreens/RecordingScreen';
 import Profile from './onboardingScreens/Profile';
 import SettingsScreen from './PatientScreens/Settings';
-<<<<<<< HEAD
-import ReminderListScreen from './PatientScreens/ReminderListScreen';
-=======
 import { useState } from 'react';
 import SharedStateContext from './SharedStateProvider';
 import CountryPickerTextInput from './onboardingScreens/phone';
 import VerificationCodeInput from './onboardingScreens/verify';
 import { ThemeProviderMode } from './themecontext';
 
->>>>>>> main
 
 
 
@@ -65,12 +61,9 @@ export const MainNavigation = () => {
      <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
      <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
-<<<<<<< HEAD
      <Stack.Screen name="ReminderListScreen" component={ReminderListScreen}  options={{headerShown: false}}/>
-=======
      <Stack.Screen name="VerificationCodeInput " component={VerificationCodeInput }  options={{headerShown: false}}/>
      <Stack.Screen name="CountryPickerTextInput" component={CountryPickerTextInput}  options={{headerShown: false}}/>
->>>>>>> main
      </Stack.Navigator>
      </SharedStateContext.Provider>
      
