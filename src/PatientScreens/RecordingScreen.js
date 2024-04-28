@@ -2,12 +2,24 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
+import * as Notifications from 'expo-notifications';
+
 
 const RecordingScreen = ({navigation}) => {
   const [recording, setRecording] = useState(null);
   const [recordings, setRecordings] = useState([]);
   const [sound, setSound] = useState(null);
 
+
+  const sendNotification = async (title, body) => {
+    await Notifications.scheduleNotificationAsync({
+      content: { title, body },
+      trigger: null,
+    });
+  };
+
+
+  
   const startRecording = async () => {
     console.log('Requesting permissions...');
     const { status } = await Audio.requestPermissionsAsync();
@@ -20,13 +32,14 @@ const RecordingScreen = ({navigation}) => {
       allowsRecordingIOS: true,
       playsInSilentModeIOS: true,
     });
-
     const newRecording = new Audio.Recording();
     await newRecording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
     await newRecording.startAsync();
     setRecording(newRecording);
     console.log('Recording started');
+    await sendNotification('Recording', 'Recording has started.');
   };
+
 
   const stopRecording = async () => {
     console.log('Stopping recording...');
@@ -35,15 +48,19 @@ const RecordingScreen = ({navigation}) => {
     setRecordings(prevRecordings => [...prevRecordings, { uri }]);
     setRecording(null);
     console.log('Recording stopped and stored at', uri);
+    await sendNotification('Recording', 'Recording has stopped.');
   };
 
-  const playSound = async (uri) => {
+
+ const playSound = async (uri) => {
     console.log('Loading Sound...');
     const { sound } = await Audio.Sound.createAsync({ uri });
     setSound(sound);
     console.log('Playing Sound...');
     await sound.playAsync();
+    await sendNotification('Playback', 'Recording is playing.');
   };
+
 
   const deleteRecording = (uri) => {
     console.log('Deleting recording...');

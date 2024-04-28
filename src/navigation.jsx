@@ -22,6 +22,7 @@ import BrainTeaserScreen from './PatientScreens/MindGames/BrainTeaserScreen';
 import RecordingScreen from './PatientScreens/RecordingScreen';
 import Profile from './onboardingScreens/Profile';
 import SettingsScreen from './PatientScreens/Settings';
+import ReminderListScreen from './PatientScreens/ReminderListScreen';
 
 
 
@@ -53,6 +54,7 @@ export const MainNavigation = () => {
      <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
      <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="ReminderListScreen" component={ReminderListScreen}  options={{headerShown: false}}/>
      </Stack.Navigator>
  )
 }

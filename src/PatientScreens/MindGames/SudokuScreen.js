@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons'; // Ensure you have expo installed or use a different icon set
+import { MaterialIcons } from '@expo/vector-icons';
 
-// Mock function for Sudoku puzzle generation
-const generatePuzzle = () => {
-  const puzzle = [];
-  for (let i = 0; i < 9; i++) {
-    const row = [];
-    for (let j = 0; j < 9; j++) {
-      row.push({ value: '', readOnly: false }); // Empty for user to fill
-    }
-    puzzle.push(row);
-  }
-  return puzzle;
-};
 
-// Sudoku Cell Component
+const initialPuzzle = [
+  [5, 3, 0, 0, 7, 0, 0, 0, 0],
+  [6, 0, 0, 1, 9, 5, 0, 0, 0],
+  [0, 9, 8, 0, 0, 0, 0, 6, 0],
+  [8, 0, 0, 0, 6, 0, 0, 0, 3],
+  [4, 0, 0, 8, 0, 3, 0, 0, 1],
+  [7, 0, 0, 0, 2, 0, 0, 0, 6],
+  [0, 6, 0, 0, 0, 0, 2, 8, 0],
+  [0, 0, 0, 4, 1, 9, 0, 0, 5],
+  [0, 0, 0, 0, 8, 0, 0, 7, 9]
+];
+
 const SudokuCell = ({ cell, onUpdate, cellIndex, rowIndex }) => {
   return (
     <TextInput
@@ -30,43 +29,71 @@ const SudokuCell = ({ cell, onUpdate, cellIndex, rowIndex }) => {
   );
 };
 
-// Main Sudoku Game Component
 const SudokuScreen = ({ navigation }) => {
-  const [grid, setGrid] = useState(generatePuzzle());
-  const [score, setScore] = useState(0);
-  const [timer, setTimer] = useState(0);
+  const [grid, setGrid] = useState(() => initializeGrid(initialPuzzle));
   const [gameActive, setGameActive] = useState(false);
+  const [timer, setTimer] = useState(0);
+  const [score, setScore] = useState(0);
+
 
   useEffect(() => {
-    let interval = null;
+    let interval;
     if (gameActive) {
       interval = setInterval(() => {
-        setTimer(prevTime => prevTime + 1);
+        setTimer((prevTimer) => prevTimer + 1);
       }, 1000);
-    } else if (!gameActive && timer !== 0) {
-      clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [gameActive, timer]);
+  }, [gameActive]);
 
-  const handleUpdateCell = (value, x, y) => {
+
+
+  useEffect(() => {
+    if (checkComplete()) {
+      Alert.alert("Congratulations!", "You have completed the puzzle correctly!");
+      setGameActive(false);
+    }
+  }, [grid]);
+
+  function initializeGrid(puzzle) {
+    return puzzle.map((row, i) => row.map((num, j) => ({
+      value: num ? String(num) : '',
+      readOnly: num !== 0
+    })));
+  }
+
+  function handleUpdateCell(value, x, y) {
     const newGrid = [...grid];
-    newGrid[x][y] = { ...newGrid[x][y], value: value.replace(/[^1-9]/g, '') };
-    setGrid(newGrid);
-    setScore(score + 1); // Assuming each valid entry increases score by 1
-  };
+    if (!newGrid[x][y].readOnly && value.replace(/[^1-9]/g, '') !== '') {
+      if (newGrid[x][y].value !== value) {
+        setScore(score + 1); 
+      }
+      newGrid[x][y].value = value.replace(/[^1-9]/g, '');
+      setGrid(newGrid);
+    }
+  }
 
-  const handleStartGame = () => {
-    setGameActive(true);
-    setTimer(0);
-    setScore(0);
-    setGrid(generatePuzzle());
-  };
+  function checkComplete() {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (grid[i][j].value === '' || grid[i][j].value !== String(initialPuzzle[i][j])) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 
-  const handleEndGame = () => {
-    setGameActive(false);
-    Alert.alert("Game Over", "Your final score: " + score);
-  };
+
+  function handleGameToggle() {
+    setGameActive(!gameActive);
+    if (!gameActive) {
+      setTimer(0);
+      setScore(0);
+      setGrid(initializeGrid(initialPuzzle)); 
+    }
+  }
+
 
   return (
     <View style={styles.container}>
@@ -74,10 +101,9 @@ const SudokuScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <MaterialIcons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.title}>Welcome to the Sudoku Game Section!</Text>
+        <Text style={styles.title}>Sudoku Game Section!</Text>
       </View>
-      <Text style={styles.sectionTitle}>Prepare to immerse yourself in the world of logic, numbers, and patterns. Sudoku, a captivating puzzle, awaits your strategic mind.</Text>
-      <Text style={styles.scoreText}>Score: {score} Time: {timer}s</Text>
+      <Text style={styles.timer}>Time: {timer}s | Score: {score}</Text>
       <View style={styles.grid}>
         {grid.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
@@ -93,14 +119,9 @@ const SudokuScreen = ({ navigation }) => {
           </View>
         ))}
       </View>
-      <View style={styles.controls}>
-        <TouchableOpacity style={styles.button} onPress={handleStartGame}>
-          <Text style={styles.buttonText}>Start Game</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleEndGame}>
-          <Text style={styles.buttonText}>End Game</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.button} onPress={handleGameToggle}>
+        <Text style={styles.buttonText}>{gameActive ? 'Pause Game' : 'Start Game'}</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -110,38 +131,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'lightyellow',
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+   // justifyContent: 'space-around',
     alignItems: 'center',
     alignSelf: 'stretch',
     paddingHorizontal: 10,
    // marginTop: 30,
-    marginBottom:19,
-  },
-  sectionTitle:{
-    fontSize: 10,
-    //fontWeight: 'bold',
-    color:'gray',
-    alignItems:'center',
-    marginBottom: 17,
-        marginTop:10,
+    marginBottom:29,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
   },
-  scoreText: {
-    fontSize: 16,
-  },
   grid: {
-    width: 300,
-    height: 300,
-    borderWidth: 2,
+    width: 315,
+    height: 315,
+    borderWidth: 3,
     borderColor: '#000',
-    marginTop: 20,
+    backgroundColor: 'lavender',
+    padding: 2,
   },
   row: {
     flex: 1,
@@ -151,9 +162,10 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderColor: '#ddd',
-    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    margin: 1,
   },
   readOnlyCell: {
     backgroundColor: '#f0f0f0',
@@ -161,19 +173,19 @@ const styles = StyleSheet.create({
   editableCell: {
     backgroundColor: '#fff',
   },
-  controls: {
-    flexDirection: 'row',
-    marginTop: 20,
-  },
   button: {
-    backgroundColor: '#d8bfd8',
+    backgroundColor: '#8fbc8f',
     padding: 10,
-    margin: 10,
+    marginTop: 20,
     borderRadius: 5,
   },
   buttonText: {
     color: 'white',
     fontSize: 16,
+  },
+  timer: {
+    fontSize: 16,
+    margin: 30,
   },
 });
 
