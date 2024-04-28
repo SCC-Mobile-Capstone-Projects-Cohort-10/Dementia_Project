@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-
-
 const questions = [
   { question: 'What is the capital of France?', options: ['Paris', 'London', 'Berlin', 'Madrid'], correctAnswer: 'Paris' },
   { question: 'What is the largest mammal?', options: ['Elephant', 'Blue Whale', 'Shark', 'Rhino'], correctAnswer: 'Blue Whale' },
@@ -18,7 +16,6 @@ const questions = [
   { question: 'What is the smallest planet in our solar system?', options: ['Mercury', 'Mars', 'Earth', 'Venus'], correctAnswer: 'Mercury' },
   { question: 'How many continents are there on Earth?', options: ['Four', 'Five', 'Six', 'Seven'], correctAnswer: 'Seven' }
 ];
-
 
 const BrainTeaserScreen = ({ navigation }) => {
   const [score, setScore] = useState(0);
@@ -77,17 +74,16 @@ const BrainTeaserScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <MaterialIcons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.title}>Welcome to the Brainteaser Section! </Text>
+        <Text style={styles.title}>Brain Teasers  Section!</Text>
       </View>
-      <Text style={styles.section}>Here, we present an intriguing word-guessing game that will challenge your lexicon and ignite your imagination. 🧩🔍</Text>
       <TouchableOpacity onPress={startGame} style={styles.startButton}>
-          <Text>Start Game</Text>
-        </TouchableOpacity>
+        <Text style={styles.startButtonText}>Start Game</Text>
+      </TouchableOpacity>
       {timerRunning && <Text style={styles.timer}>Timer: {timer}</Text>}
       <Text style={styles.question}>{questions[currentQuestionIndex].question}</Text>
       {questions[currentQuestionIndex].options.map((option, index) => (
         <TouchableOpacity key={index} style={styles.answerButton} onPress={() => handleAnswer(option)}>
-          <Text>{option}</Text>
+          <Text style={styles.answerText}>{option}</Text>
         </TouchableOpacity>
       ))}
       <Text style={styles.score}>Score: {score}</Text>
@@ -101,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#FFF1D0',
   },
   header: {
     flexDirection: 'row',
@@ -111,43 +107,47 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   title: {
-    fontSize: 23,
+    fontSize: 28,
     fontWeight: 'bold',
-  },
-  section:{
-    fontSize: 8,
-    marginTop: 10,
-    textAlign: 'center',
-    marginBottom:30,
-  },
-  backButton: {
-    // Styles if needed
+    color: '#3D405B',
   },
   startButton: {
-    backgroundColor: '#d8bfd8',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom:20,
+    backgroundColor: '#81B29A',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  startButtonText: {
+    fontSize: 20,
+    color: '#FFFFFF',
   },
   timer: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 22,
+    color: '#3D405B',
+    marginBottom: 20,
   },
   question: {
-    fontSize: 20,
-    marginBottom: 19,
+    fontSize: 24,
+    color: '#3D405B',
+    marginBottom: 25,
     textAlign: 'center',
-    
   },
   answerButton: {
-    backgroundColor: '#d8bfd8',
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 5,
+    backgroundColor: '#F4F1DE',
+    padding: 15,
+    marginBottom: 15,
+    borderRadius: 10,
+    width: 300,
+    alignItems: 'center',
+  },
+  answerText: {
+    fontSize: 20,
+    color: '#3D405B',
   },
   score: {
-    fontSize: 18,
+    fontSize: 22,
     marginTop: 20,
+    color: '#3D405B',
   },
 });
 

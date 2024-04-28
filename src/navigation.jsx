@@ -61,6 +61,7 @@ export const MainNavigation = () => {
      <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
      <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
+     <Stack.Screen name="ReminderListScreen" component={ReminderListScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="VerificationCodeInput " component={VerificationCodeInput }  options={{headerShown: false}}/>
      <Stack.Screen name="CountryPickerTextInput" component={CountryPickerTextInput}  options={{headerShown: false}}/>
      </Stack.Navigator>
