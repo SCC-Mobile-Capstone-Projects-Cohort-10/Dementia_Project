@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { ChangeIntoDarkMode } from '../themecontext';
 
 const contacts = [
   { name: 'Jesse Pinkman', role: 'Caregiver', phone: '0785617388', image: require('../img/female.jpg') },
@@ -16,18 +17,20 @@ const EmergencyCall = ({ navigation }) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
+  const {dark} = useContext(ChangeIntoDarkMode)
+
   const goBack = () => {
     navigation.goBack(); 
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style={styles.container}>
+    <ScrollView contentContainerStyle={{flexGrow: 1,padding: 10,backgroundColor:dark?'black':'white',}}>
+      <View style={{flex: 1,padding: 10,backgroundColor:dark?'black':'white'}}>
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={goBack}>
-            <Icon name="arrow-back" size={24} color="#333" />
+            <Icon name="arrow-back" size={24} style={{color:dark?'white':'black'}} />
           </TouchableOpacity>
-          <Text style={styles.header}>Emergency Contacts</Text>
+          <Text style={{ fontSize: 22,fontWeight: 'bold',flex: 1,textAlign: 'center',color:dark?'white':'black'}}>Emergency Contacts</Text>
         </View>
         {contacts.map((contact, index) => (
           <TouchableOpacity

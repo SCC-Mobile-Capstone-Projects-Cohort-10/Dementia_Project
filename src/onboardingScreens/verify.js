@@ -3,12 +3,14 @@ import { View, TextInput, Button, StyleSheet, SafeAreaView, Text, TouchableOpaci
 import { useNavigation } from '@react-navigation/native';
 import SharedStateContext from '../SharedStateProvider';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { ChangeIntoDarkMode } from '../themecontext';
 
 const VerificationCodeInput = ({ navigation, route }) => {
   const [code, setCode] = useState(['', '', '', '']);
   const inputRefs = useRef([]);
   const {sharedState, setSharedState} = useContext(SharedStateContext);
   const navigate = useNavigation()
+  const {dark} = useContext(ChangeIntoDarkMode)
 
   const handleChangeText = (text, index) => {
     if (text.length <= 1) {
@@ -39,17 +41,14 @@ const VerificationCodeInput = ({ navigation, route }) => {
   }, [sharedState]);
   console.log("Shared state", sharedState)
   return (
-    <SafeAreaView>
-    <View style={{marginTop:50}}>
-        <View style={{height:10}}></View>
+    <SafeAreaView style={{backgroundColor:dark?'black':'white'}}>
     <View style={{marginTop: moderateScale(40)}}>
         <View style={{height: verticalScale(30), width: scale(20)}}></View>
         <Text style={{textAlign:'center',color:'grey',fontSize:20}}>Verification</Text>
         <View style={{height: verticalScale(30)}}></View>
-        <Text style={{textAlign:'center',fontSize:20}}>We send you an </Text>
-        <Text style={{textAlign:'center',fontSize:20}}>SMS coded </Text>
-        <Text style={{textAlign:'center',fontSize:20}}>{sharedState}</Text>
-        <View style={{height:10}}></View>
+        <Text style={{textAlign:'center',fontSize:20,color:dark?'white':'black' }}>We send you an </Text>
+        <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>SMS coded </Text>
+        <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>{sharedState}</Text>
         <View style={{height: verticalScale(65)}}></View>
       <View style={styles.codeContainer}>
         {sharedState?.map((item, index) => (
@@ -73,13 +72,14 @@ const VerificationCodeInput = ({ navigation, route }) => {
       <Text style={{textAlign:'center',fontSize:22,color:'black'}}>Next</Text>
       </TouchableOpacity>
       </View>
-      <View style={{height: verticalScale(55)}}></View>
-      <Text style={{textAlign:'center'}}>Didn't receive code</Text>
+      <View style={{height: verticalScale(30)}}></View>
+      <Text style={{textAlign:'center',color:dark?'white':'black'}}>Didn't receive code</Text>
       <View style={styles.textnow}>
       <TouchableOpacity>
-      <Text style={{textAlign:'center',fontSize:18,color:'black'}}>Resend code</Text>
+      <Text style={{textAlign:'center',fontSize:18 ,color:'black'}}>Resend code</Text>
       </TouchableOpacity>
       </View>
+      <View style={{height:190}}></View>
     </View>
     </SafeAreaView>
   );

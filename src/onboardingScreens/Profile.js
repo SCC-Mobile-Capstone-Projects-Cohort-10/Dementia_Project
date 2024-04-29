@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { TextInput, Button, Menu, Provider, TouchableRipple } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -9,6 +9,8 @@ import { addDoc, collection } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { ChangeIntoDarkMode } from '../themecontext';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 
@@ -18,6 +20,8 @@ export default function Profile({ navigation }) {
   const [image, setImage] = useState('https://images.pexels.com/photos/675920/pexels-photo-675920.jpeg?cs=srgb&dl=pexels-min-an-675920.jpg&fm=jpg');
   const [role, setRole] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
+  const {dark,changeIntoDark} = useContext(ChangeIntoDarkMode)
+
 
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
@@ -89,7 +93,12 @@ export default function Profile({ navigation }) {
 
   return (
     <Provider>
-      <View style={styles.container}>
+      <View style={{ flex: 1,padding: 20,backgroundColor: '#FFFFFF',backgroundColor:dark?'black':'white'}}>
+        <View style={{height:20}}></View>
+        <View>
+          <MaterialIcons name='dark-mode' size={20} onPress={changeIntoDark} style={{color:dark?'white':'black'}}/>
+          <Text style={{color:dark?'white':'black'}}>Mode</Text>
+        </View>
         <Text style={styles.headerText}>Please fill in your profile details:</Text>
         <Pressable onPress={handleChangeProfile} style={styles.profileImagePressable}>
           <Image source={{ uri: image }} style={styles.profileImage} />
@@ -129,7 +138,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    textAlign:'center'
   },
   profileImagePressable: {
     alignItems: 'center',

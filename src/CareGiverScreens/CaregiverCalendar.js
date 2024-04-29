@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Button } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
+import { ChangeIntoDarkMode } from '../themecontext';
 
 const { width: screenWidth } = Dimensions.get('window');
 
 export default function CaregiverCalendar({ navigation }) {
   const [activeTab, setActiveTab] = useState('CalendarScreen');
   const [markedDates, setMarkedDates] = useState({});
+  const {dark} = useContext(ChangeIntoDarkMode)
   const [reminders, setReminders] = useState({
     "2024-04-24": { title: "Meeting" }
   });
@@ -17,6 +19,7 @@ export default function CaregiverCalendar({ navigation }) {
     setActiveTab(tab);
     navigation.navigate(tab);
   };
+
 
 
   useEffect(() => {
@@ -66,12 +69,12 @@ export default function CaregiverCalendar({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.introTitle}>Let’s Organize Your Days!</Text>
-      <Text style={styles.introText}>
+    <View style={{ flex: 1,paddingTop: 20,alignItems: 'center',backgroundColor:dark?'black':'white'}}>
+      <Text style={{fontSize: 22,fontWeight: 'bold',color:dark?'white':'black',textAlign: 'center',}}>Let’s Organize Your Days!</Text>
+      <Text style={{fontSize: 22,fontWeight: 'bold',color: '#333',textAlign: 'center',color:dark?'white':'black'}}>
         Click on a date to view or add reminders.
       </Text>
-      <View style={styles.calendarContainer}>
+      <View style={{ marginTop: 20,width: '90%',padding: 10,backgroundColor:dark?'white':'black',borderRadius: 10,}}>
         <Calendar
           onDayPress={handleDayPress}
           markedDates={markedDates}
