@@ -6,8 +6,11 @@ import SharedStateContext from '../SharedStateProvider';
 import { firebaseaAuth } from '../../FirebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {showMessage} from 'react-native-flash-message';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { getAuth,signInWithPhoneNumber } from 'firebase/auth';
+import { ChangeIntoDarkMode } from '../themecontext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
  
 
@@ -89,7 +92,7 @@ const CountryPickerTextInput = ({ navigation }) => {
         if (phoneRegex.test(phoneNumber)) {
             Alert.alert('Success', 'Phone number is valid.');
             console.log('sucessfully')
-            // navigation.navigate('VerificationCodeInput')
+            navigation.navigate('VerificationCodeInput')
         } else {
             Alert.alert('Error', 'Please enter a valid phone number.');
             console.log('unsucessfully')
@@ -97,42 +100,42 @@ const CountryPickerTextInput = ({ navigation }) => {
         setValidNumber(true);
         
     };
-    const handlesubmit = async () => {
-        if (validatePhoneNumber()) {
-            console.log('form submitted', phoneNumber)
+    // const handlesubmit = async () => {
+    //     if (validatePhoneNumber()) {
+    //         console.log('form submitted', phoneNumber)
     
-            try {
-                const response = await signInWithPhoneNumber(getAuth(),phoneNumber)
-                console.log(response)
-                console.log('your now signed in')
-                showMessage({
-                    message: 'phone-number successfully',
-                    description: 'your now registered phone-number',
-                    type: 'success',
-                    icon: 'success',
-                    duration: 3000
-                })
-                navigation.navigate('VerificationCodeInput')
-            } catch (error) {
-                console.log(error)
-                showMessage({
-                    message: "fail to register your phone-number",
-                    description: error.code.toString(),
-                    type: 'danger',
-                    icon: 'danger',
-                    duration: 3000
-                })
-            } finally {
-                setIsloading(false)
-            }
+    //         try {
+    //             const response = await signInWithPhoneNumber(getAuth(),phoneNumber)
+    //             console.log(response)
+    //             console.log('your now signed in')
+    //             showMessage({
+    //                 message: 'phone-number successfully',
+    //                 description: 'your now registered phone-number',
+    //                 type: 'success',
+    //                 icon: 'success',
+    //                 duration: 3000
+    //             })
+    //             navigation.navigate('VerificationCodeInput')
+    //         } catch (error) {
+    //             console.log(error)
+    //             showMessage({
+    //                 message: "fail to register your phone-number",
+    //                 description: error.code.toString(),
+    //                 type: 'danger',
+    //                 icon: 'danger',
+    //                 duration: 3000
+    //             })
+    //         } finally {
+    //             setIsloading(false)
+    //         }
     
-        }
-    }
+    //     }
+    // }
     
 
     useEffect(() =>{
         if(validNumber){
-            fetch('http://192.168.1.69:3000/send-sms', {
+            fetch('https://backend-deploy-5.onrender.com/send-sms', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -162,16 +165,17 @@ const CountryPickerTextInput = ({ navigation }) => {
                     <Text style={{ textAlign: 'center', fontSize: 20 }}>Enter your</Text>
                     <Text style={{ textAlign: 'center', fontSize: 20 }}>mobile number</Text>
                 </View>
-                <View style={{ height: 60 }}>
+                <View style={{ height: verticalScale(55)}}>
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>We will send you</Text>
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>confirmation code</Text>
                 </View>
+                <View style={{height: verticalScale(25)}}></View>
                 <View style={styles.textInputContainer}>
                     <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.iconContainer}>
-                        <AntDesign name="caretdown" size={24} color="black" />
+                        <AntDesign name="caretdown" size={24} style={{color:dark?'white':'black'}} />
                     </TouchableOpacity>
-                    <Text style={styles.countryCode}>{selectedCountry ? selectedCountry.code : 'Code'}</Text>
-                    <Text style={styles.countryName}>{selectedCountry ? selectedCountry.name : 'Select Country'}</Text>
+                    <Text style={styles.countryCode}>{selectedCountry ? selectedCountry.code : 'Country'}</Text>
+                    <Text style={styles.countryName}>{selectedCountry ? selectedCountry.name : 'Code'}</Text>
                     <TextInput
                         style={styles.textInput}
                         placeholder="Enter your Phone Number"
@@ -206,12 +210,13 @@ const CountryPickerTextInput = ({ navigation }) => {
                 </Modal>
                 <View style={{ height: 20 }}></View>
                 <View style={styles.buttomtext}>
-                    <TouchableOpacity onPress={handlesubmit} disabled={!selectedCountry || !phoneNumber}>
+                    <TouchableOpacity onPress={validatePhoneNumber} disabled={!selectedCountry || !phoneNumber}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{height:242}}></View>
             </View> 
-        </SafeAreaView>
+            </SafeAreaView>
     );
 };
 
@@ -220,9 +225,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         textAlign: 'center',
         backgroundColor: '#d8bfd8',
-        height: 55,
-        marginHorizontal: 50,
-        paddingTop: 16,
+        // height: verticalScale(55),
+        paddingBottom: moderateScale(20),
+        marginHorizontal: moderateScale(50),
+        paddingTop: moderateScale(16),
 
 
     },
@@ -237,16 +243,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 5,
-        paddingHorizontal: 1,
-        marginHorizontal: 15,
-        height: 50
+        paddingHorizontal: moderateScale(1),
+        marginHorizontal: moderateScale(17),
+        height: verticalScale(45),
     },
     textInput: {
         flex: 1,
-        marginLeft: 10,
+        marginLeft: moderateScale(-50),
+        
     },
     iconContainer: {
-        padding: 10,
+        padding: moderateScale(10),
     },
     modalContainer: {
         flex: 1,
@@ -270,7 +277,7 @@ const styles = StyleSheet.create({
     },
     countryName: {
         flex: 1,
-        marginLeft: 10,
+        marginLeft: moderateScale(10),
         fontSize: 16,
     },
 });

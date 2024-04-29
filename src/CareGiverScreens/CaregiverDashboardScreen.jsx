@@ -57,7 +57,7 @@ const CaregiverDashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
     <View style={styles.header}>
-      <Text style={styles.headerText}>Welcome Sarah  👋</Text>
+      <Text style={styles.headerText}>Hi, Welcome 👋</Text>
       <TouchableOpacity 
       style={styles.notificationIcon}
       onPress={() => navigation.navigate('CaregiverNotificationScreen')}  
@@ -110,8 +110,9 @@ const CaregiverDashboard = ({navigation}) => {
       <TouchableOpacity onPress={() => handleNavigation('EducationScreen')}>
         <Icon name="school" size={30} color={activeTab === 'EducationScreen' ? '#000' : '#fff'} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-        <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
+
+      <TouchableOpacity onPress={() => handleNavigation('Settings')}>
+        <Icon name="settings" size={30} color={activeTab === 'Settings' ? '#000' : '#fff'} />
       </TouchableOpacity>
     </View>
     </View>

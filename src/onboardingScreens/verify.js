@@ -2,6 +2,8 @@ import React, { useState, useRef, useContext, useEffect } from 'react';
 import { View, TextInput, Button, StyleSheet, SafeAreaView, Text, TouchableOpacity,Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SharedStateContext from '../SharedStateProvider';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+
 const VerificationCodeInput = ({ navigation, route }) => {
   const [code, setCode] = useState(['', '', '', '']);
   const inputRefs = useRef([]);
@@ -27,7 +29,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
     console.log("Shared state", sharedState);
     if (Number(enteredCode) === Number(sharedState.join(""))) {
       Alert.alert('Success', ' digit number is correct.');
-      navigation.navigate('WelcomeScreen')
+      navigation.navigate('Profile')
     }else{
       Alert.alert('Error', 'Please enter a correct digit number.');
     }
@@ -40,12 +42,15 @@ const VerificationCodeInput = ({ navigation, route }) => {
     <SafeAreaView>
     <View style={{marginTop:50}}>
         <View style={{height:10}}></View>
+    <View style={{marginTop: moderateScale(40)}}>
+        <View style={{height: verticalScale(30), width: scale(20)}}></View>
         <Text style={{textAlign:'center',color:'grey',fontSize:20}}>Verification</Text>
-        <View style={{height:30}}></View>
+        <View style={{height: verticalScale(30)}}></View>
         <Text style={{textAlign:'center',fontSize:20}}>We send you an </Text>
         <Text style={{textAlign:'center',fontSize:20}}>SMS coded </Text>
         <Text style={{textAlign:'center',fontSize:20}}>{sharedState}</Text>
         <View style={{height:10}}></View>
+        <View style={{height: verticalScale(65)}}></View>
       <View style={styles.codeContainer}>
         {sharedState?.map((item, index) => (
           <TextInput
@@ -62,12 +67,13 @@ const VerificationCodeInput = ({ navigation, route }) => {
         ))}
       </View>
       <View style={{height:10}}></View>
+      <View style={{height: verticalScale(60)}}></View>
       <View style={styles.buttonclick}>
         <TouchableOpacity onPress={handleVerify}>
       <Text style={{textAlign:'center',fontSize:22,color:'black'}}>Next</Text>
       </TouchableOpacity>
       </View>
-      <View style={{height:55}}></View>
+      <View style={{height: verticalScale(55)}}></View>
       <Text style={{textAlign:'center'}}>Didn't receive code</Text>
       <View style={styles.textnow}>
       <TouchableOpacity>
@@ -82,15 +88,17 @@ const VerificationCodeInput = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   textnow: {
     backgroundColor: '#d8bfd8',
-    marginHorizontal: 120,
-    height: 60,
-    paddingTop: 15, borderRadius: 14,
+    marginHorizontal: moderateScale(100),
+    paddingBottom: moderateScale(20),
+    paddingTop: moderateScale(15), 
+    borderRadius: 14,
   },
   buttonclick: {
     backgroundColor: '#d8bfd8',
-    marginHorizontal: 60,
-    height: 60,
-    paddingTop: 15, borderRadius: 14,
+    marginHorizontal: moderateScale(60),
+    paddingBottom: moderateScale(20),
+    paddingTop: moderateScale(15),
+    borderRadius: 14,
   },
   container: {
     flex: 1,
@@ -103,12 +111,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    height: 80,
-    width: 60,
+    height: verticalScale(40),
+    width: scale(50),
     borderColor: '#DDDDDD',
     backgroundColor: '#DDDDDD',
     borderWidth: 1,
-    marginHorizontal: 12,
+    marginHorizontal: moderateScale(12),
     textAlign: 'center',
   },
 });
