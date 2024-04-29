@@ -51,7 +51,9 @@ const CaregiverEmergency = ({ navigation }) => {
               <Text style={styles.contactRole}>{contact.role}</Text>
               <Icon name="phone" size={24} color="#5a5a5a" style={styles.phoneIcon} />
             </View>
+            </View>
           </TouchableOpacity>
+          
         ))}
       </View>
     </ScrollView>
