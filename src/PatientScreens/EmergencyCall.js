@@ -1,6 +1,6 @@
-import React, { useState, useEffect }  from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, Image, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const contacts = [
   { name: 'Jesse Pinkman', role: 'Caregiver', phone: '0785617388', image: require('../img/female.jpg') },
@@ -11,57 +11,38 @@ const contacts = [
   { name: 'Peterson', role: 'Psychiatrist', phone: '0783431312', image: require('../img/maledoctor.jpg') },
 ];
 
-const EmergencyCall = ({navigation}) => {
-
- 
-  const [activeTab, setActiveTab] = useState('EmergencyCall');
-
-  const handleNavigation = (tab) => {
-    setActiveTab(tab);
-    navigation.navigate(tab);
-  };
-
-
+const EmergencyCall = ({ navigation }) => {
   const handleCall = (phoneNumber) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
 
+  const goBack = () => {
+    navigation.goBack(); 
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent} scrollEnabled={false}>
+    <ScrollView contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.container}>
-        <Text style={styles.header}>Emergency Contacts</Text>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={goBack}>
+            <Icon name="arrow-back" size={24} color="#333" />
+          </TouchableOpacity>
+          <Text style={styles.header}>Emergency Contacts</Text>
+        </View>
         {contacts.map((contact, index) => (
           <TouchableOpacity
             key={index}
             style={styles.contact}
             onPress={() => handleCall(contact.phone)}>
-            <View style={styles.contactInfo}>
-              <View style={styles.contactImageContainer}>
-                <Image style={styles.contactImage} source={contact.image} />
-              </View>
-              <View style={styles.contactDetails}>
-                <Text style={styles.contactName}>{contact.name}</Text>
-                <Text style={styles.contactRole}>{contact.role}</Text>
-              </View>
-              <Icon name="phone" size={20} color="#d8bfd8" /> 
+            <Image style={styles.contactImage} source={contact.image} />
+            <View style={styles.contactDetails}>
+              <Text style={styles.contactName}>{contact.name}</Text>
+              <Text style={styles.contactRole}>{contact.role}</Text>
+              <Icon name="phone" size={24} color="#5a5a5a" style={styles.phoneIcon} />
             </View>
           </TouchableOpacity>
         ))}
       </View>
-      <View style={styles.bottomContainer}>
-       <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
-          <Icon name="home" size={30} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
-          <Icon name="call" size={30} color={activeTab === 'EmergencyCall' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('PatientLocation')}>
-        <Icon name="location-on" size={30} color={activeTab === 'PatientLocation' ? '#000' : '#fff'} />
-      </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('Profile')}>
-          <Icon name="person" size={30} color={activeTab === 'Profile' ? '#000' : '#fff'} />
-        </TouchableOpacity>
-    </View>
     </ScrollView>
   );
 };
@@ -69,59 +50,62 @@ const EmergencyCall = ({navigation}) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
+    padding: 10,
+    backgroundColor: '#eef2f3',
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-   // marginBottom: 2,
-  },
-  contact: {
-    marginBottom: 10,
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
   },
-  contactInfo: {
+  headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
+    marginBottom: 15,
   },
-  contactImageContainer: {
-    marginRight: 10,
+  header: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    flex: 1,
+    textAlign: 'center',
+  },
+  contact: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   contactImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginRight: 15,
   },
   contactDetails: {
     flex: 1,
+    justifyContent: 'center',
   },
   contactName: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    color: '#333',
   },
   contactRole: {
     fontSize: 16,
     color: '#666',
+    marginBottom: 5,
   },
-  bottomContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    backgroundColor: '#d8bfd8', 
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    padding: 10,  
-    // height: 20 
-  }
+  phoneIcon: {
+    alignSelf: 'flex-end',
+    marginTop: 5,
+  },
 });
 
 export default EmergencyCall;

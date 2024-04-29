@@ -7,10 +7,11 @@ import { firebaseaAuth } from '../../FirebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {showMessage} from 'react-native-flash-message';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-
+import FlashMessage from 'react-native-flash-message';
 import { getAuth,signInWithPhoneNumber } from 'firebase/auth';
 import { ChangeIntoDarkMode } from '../themecontext';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Keyboard } from 'react-native';
 
  
 
@@ -38,13 +39,11 @@ const CountryPickerTextInput = ({ navigation }) => {
         { name: 'Algeria', code: '+213' },
         { name: 'Angola', code: '+244' },
         { name: 'Argentina', code: '+54' },
-        { name: 'Australia', code: '+61' },
         { name: 'Belgium', code: '+32' },
         { name: 'Benin', code: ' +229' },
         { name: 'Botswana', code: ' +267' },
         { name: 'Brazil', code: '+55' },
         { name: 'Burundi', code: '+257' },
-        { name: 'Canada', code: '+1' },
         { name: 'Chad', code: '+235' },
         { name: 'China', code: '+86' },
         { name: 'Colombia', code: '+57' },
@@ -61,7 +60,6 @@ const CountryPickerTextInput = ({ navigation }) => {
         { name: 'Italy', code: '+39' },
         { name: 'Ivory Coast', code: '+225' },
         { name: 'Jamaica', code: '+1-876' },
-        { name: 'Japan', code: '+81' },
         { name: 'Kenya', code: '+254' },
         { name: 'Liberia', code: '+231' },
         { name: 'Libya', code: '+218' },
@@ -92,7 +90,8 @@ const CountryPickerTextInput = ({ navigation }) => {
         if (phoneRegex.test(phoneNumber)) {
             Alert.alert('Success', 'Phone number is valid.');
             console.log('sucessfully')
-            navigation.navigate('VerificationCodeInput')
+            navigation.navigate('VerificationCodeInput');
+            Keyboard.dismiss();
         } else {
             Alert.alert('Error', 'Please enter a valid phone number.');
             console.log('unsucessfully')
@@ -158,13 +157,11 @@ const CountryPickerTextInput = ({ navigation }) => {
     },[validNumber])
 
     return (
-        <SafeAreaView>
-            <View style={{ marginTop: 60 }}>
-                <Text style={{ color: "grey", textAlign: 'center', fontSize: 20, height: 40 }}>Welcome</Text>
-                <View style={{ height: 60 }}>
-                    <Text style={{ textAlign: 'center', fontSize: 20 }}>Enter your</Text>
-                    <Text style={{ textAlign: 'center', fontSize: 20 }}>mobile number</Text>
-                </View>
+        <SafeAreaView style={{backgroundColor:dark?'black':'white'}}>
+            <View style={{ marginTop: moderateScale(20) }}>
+                <Icon name="heart" size={30} color={dark ? 'white' : 'black'} style={{ alignSelf: 'center', marginBottom: 20 }} onPress={changeIntoDark} />
+                <Text style={{ color: "grey", textAlign: 'center', fontSize: 20, height: verticalScale(60)}}>Welcome</Text>
+                <Text style={{ textAlign: 'center', fontSize: 20, color: dark ? 'white' : 'black' }}>Enter your mobile number</Text>
                 <View style={{ height: verticalScale(55)}}>
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>We will send you</Text>
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>confirmation code</Text>
@@ -208,7 +205,7 @@ const CountryPickerTextInput = ({ navigation }) => {
                         </View>
                     </View>
                 </Modal>
-                <View style={{ height: 20 }}></View>
+                <View style={{ height: verticalScale(50)}}></View>
                 <View style={styles.buttomtext}>
                     <TouchableOpacity onPress={validatePhoneNumber} disabled={!selectedCountry || !phoneNumber}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
@@ -243,8 +240,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: 5,
-        paddingHorizontal: moderateScale(1),
-        marginHorizontal: moderateScale(17),
+        paddingHorizontal: moderateScale(10),
+        marginHorizontal: moderateScale(20),
         height: verticalScale(45),
     },
     textInput: {
