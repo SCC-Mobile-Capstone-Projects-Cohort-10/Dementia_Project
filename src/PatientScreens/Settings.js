@@ -1,6 +1,6 @@
-import React,  { useState, useEffect } from 'react';
+import React,  { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet,  TouchableOpacity} from 'react-native';
-
+import { ChangeIntoDarkMode } from '../themecontext';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 
@@ -9,6 +9,7 @@ const SettingsScreen = ({navigation}) => {
 
  
   const [activeTab, setActiveTab] = useState('Settings');
+  const {dark} = useContext(ChangeIntoDarkMode)
 
   const handleNavigation = (tab) => {
     setActiveTab(tab);

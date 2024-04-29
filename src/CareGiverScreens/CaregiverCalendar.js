@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
+import { ChangeIntoDarkMode } from '../themecontext';
+import { AntDesign } from '@expo/vector-icons';
 
 const { width: screenWidth } = Dimensions.get('window'); 
 
 export default function CaregiverCalendar({ navigation }) {
   const [activeTab, setActiveTab] = useState('CalendarScreen');
   const [markedDates, setMarkedDates] = useState({});
+  const {dark} = useContext(ChangeIntoDarkMode)
   const [reminders, setReminders] = useState({
     "2024-04-24": { title: "Meeting" }
   });
@@ -40,14 +43,14 @@ export default function CaregiverCalendar({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{flex:1,padding:10,backgroundColor:dark?'black':'white'}}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={34} color="#000" />
+          <AntDesign name="arrowleft" style={{fontSize:30,color:dark?'white':'black'}} />
         </TouchableOpacity>
-        <Text style={styles.introTitle}>Let’s work together to organize your life</Text>
+        <Text style={{fontSize: 18,fontWeight: 'bold',marginLeft: 10,color:dark?'white':'black'}}>Let’s work together to organize your life</Text>
       </View>
-      <Text style={styles.introText}>
+      <Text style={{fontSize: 16,marginBottom: 20,color:dark?'white':'black'}}>
         Whether it’s setting up appointments, planning dinner dates, or managing important events, we’ve got you covered 🌟📅
       </Text>
       <View style={styles.calendarContainer}>
@@ -71,15 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     marginBottom: 20,     
   },
-  introTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginLeft: 10, 
-  },
-  introText: {
-    fontSize: 16,
-    marginBottom: 20,
-  },
+  
   calendarContainer: {
     marginTop: 20,
   },

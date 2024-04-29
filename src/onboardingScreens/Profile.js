@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Modal, Pressable } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
@@ -9,6 +9,8 @@ import { addDoc, collection } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ChangeIntoDarkMode } from '../themecontext';
 
 
 export default function Profile({ navigation }) {
@@ -18,6 +20,7 @@ export default function Profile({ navigation }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [role, setRole] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const {dark,changeIntoDark}= useContext(ChangeIntoDarkMode)
 
   useEffect(() => {
     loadTheme();
@@ -117,15 +120,23 @@ export default function Profile({ navigation }) {
 
   return (
     <View style={[styles.container, isDarkMode && styles.darkContainer]}>
+      <View style={{height:10}}></View>
+      <View style={{}}>
+      <MaterialIcons name="dark-mode" size={24} color={dark?'white':'black'} style={{marginTop:20}} onPress={changeIntoDark}/>
+      <Text>Mode</Text>
+      </View>
+      <View style={{height:40}}></View>
       <Text style={[styles.headerText, isDarkMode && styles.darkText]}>
         Please fill in your profile details:
       </Text>
+      <View style={{height:18}}></View>
       <Pressable onPress={handleChangeProfile} style={styles.profileImagePressable}>
         <Image source={{ uri: image }} style={styles.profileImage} />
         <Feather name='camera' size={24} color="white" style={styles.cameraIcon} />
       </Pressable>
       <TextInput label='Name' value={name} onChangeText={setName} style={[styles.input, isDarkMode && styles.darkInput]} />
       <TextInput label='Address' value={address} onChangeText={setAddress} style={[styles.input, isDarkMode && styles.darkInput]} />
+      <View style={{height:23}}></View>
       <TouchableOpacity onPress={() => setModalVisible(true)} style={[styles.button, isDarkMode && styles.darkInput]}>
         <Text style={styles.textStyle}>{role || "Select Role"}</Text>
       </TouchableOpacity>
@@ -149,11 +160,6 @@ export default function Profile({ navigation }) {
       <TouchableOpacity onPress={handleAddDoc} style={styles.button}>
   <Text style={styles.textStyle}>Submit Profile</Text>
 </TouchableOpacity>
-      <View style={styles.toggleButtonView}>
-        <TouchableOpacity style={styles.toggleButton} onPress={toggleDarkMode}>
-          <Text style={styles.toggleButtonText}>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    textAlign:'center'
   },
   darkText: {
     color: '#FFFFFF',
@@ -208,7 +214,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 5,
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   textStyle: {
     fontSize: 14,

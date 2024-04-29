@@ -10,7 +10,7 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 import { getAuth,signInWithPhoneNumber } from 'firebase/auth';
 import { ChangeIntoDarkMode } from '../themecontext';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 
  
 
@@ -23,7 +23,7 @@ const CountryPickerTextInput = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const {sharedState, setSharedState} = useContext(SharedStateContext);
     const [validNumber, setValidNumber] = useState(false)
-    const {dark,changeIntoDark}= useContext(ChangeIntoDarkMode)
+    const {dark}= useContext(ChangeIntoDarkMode)
 
     // const [isloading,setIsloading] = useState(false)
     
@@ -161,7 +161,6 @@ const CountryPickerTextInput = ({ navigation }) => {
     return (
         <SafeAreaView style={{backgroundColor:dark?'black':'white'}}>
             <View style={{ marginTop: moderateScale(50)}}>
-            <Icon name="heart" size={30} color={dark?'white':'black'} style={{marginTop:20}} onPress={changeIntoDark}/>
                 <Text style={{ color: "grey", textAlign: 'center', fontSize: 20, height: verticalScale(40)}}>Welcome</Text>
                 <View style={{ height: verticalScale(65)}}>
                     <Text style={{ textAlign: 'center', fontSize: 20, color:dark?'white':'black'}}>Enter your</Text>
@@ -172,14 +171,14 @@ const CountryPickerTextInput = ({ navigation }) => {
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>confirmation code</Text>
                 </View>
                 <View style={{height: verticalScale(25)}}></View>
-                <View style={styles.textInputContainer}>
+                <View style={{ flexDirection: 'row',alignItems: 'center',borderWidth: 1,borderColor:dark?'white':'black',borderRadius: 5,paddingHorizontal: moderateScale(1),marginHorizontal: moderateScale(17),height: verticalScale(45),}}>
                     <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.iconContainer}>
                         <AntDesign name="caretdown" size={24} style={{color:dark?'white':'black'}} />
                     </TouchableOpacity>
-                    <Text style={styles.countryCode}>{selectedCountry ? selectedCountry.code : 'Country'}</Text>
-                    <Text style={styles.countryName}>{selectedCountry ? selectedCountry.name : 'Code'}</Text>
+                    <Text style={{fontSize: 16,color:dark?'white':'black'}}>{selectedCountry ? selectedCountry.code : 'Country'}</Text>
+                    <Text style={{ flex: 1,marginLeft: moderateScale(10),fontSize: 16,color:dark?'white':'black'}}>{selectedCountry ? selectedCountry.name : 'Code'}</Text>
                     <TextInput
-                        style={styles.textInput}
+                        style={{ flex: 1,marginLeft: moderateScale(-50),color:dark?'white':'black'}}
                         placeholder="Enter your Phone Number"
                         value={phoneNumber}
                         onChangeText={setPhoneNumber}
@@ -216,7 +215,7 @@ const CountryPickerTextInput = ({ navigation }) => {
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{height:242}}></View>
+                <View style={{height:300}}></View>
             </View> 
         </SafeAreaView>
     );

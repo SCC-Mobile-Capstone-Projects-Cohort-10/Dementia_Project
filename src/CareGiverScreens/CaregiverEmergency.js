@@ -1,6 +1,9 @@
-import React, { useState, useEffect }  from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking, Image, ScrollView } from 'react-native';
+import React, { useState, useEffect, useContext }  from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Image, ScrollView, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import { ChangeIntoDarkMode } from '../themecontext';
+import { AntDesign } from '@expo/vector-icons';
+
 
 const contacts = [
   { name: 'Jesse Pinkman', role: 'Caregiver', phone: '0785617388', image: require('../img/female.jpg') },
@@ -24,19 +27,20 @@ const CaregiverEmergency = ({navigation}) => {
   const handleCall = (phoneNumber) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
+  const {dark} = useContext(ChangeIntoDarkMode)
 
   return (
     <ScrollView contentContainerStyle={styles.scrollViewContent} scrollEnabled={false}>
-    <View style={styles.container}>
+    <View style={{backgroundColor:dark?'black':'white',padding:20,flex:1}}>
       <View style={styles.headerContainer}>
-        <Icon 
-          name="arrow-left" 
+        <AntDesign
+          name="arrowleft" 
           size={44} 
           color="#000" 
           onPress={() => navigation.goBack()} 
-          style={styles.backIcon} 
+          style={{marginRight:20,color:dark?'white':'black',fontSize:30}} 
         />
-        <Text style={styles.header}>Emergency Contacts</Text>
+        <Text style={{fontSize:20,fontWeight:'bold',color:dark?'white':'black'}}>Emergency Contacts</Text>
       </View>
       {contacts.map((contact, index) => (
         <TouchableOpacity
@@ -64,19 +68,12 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#F9F9F9',  
-    padding: 20,
-  },
   headerContainer: {
     flexDirection: 'row',   
     alignItems: 'center',   
     marginBottom: 20,       
   },
-  backIcon: {
-    marginRight: 10,       
-  },
+  
   header: {
     fontSize: 24,  
     fontWeight: 'bold',

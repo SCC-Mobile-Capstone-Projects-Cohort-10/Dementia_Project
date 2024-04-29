@@ -2,7 +2,6 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './onboardingScreens/SplashScreen';
 import GetStarted from './onboardingScreens/GetStarted';
-import WelcomeScreen from './onboardingScreens/WelcomeScreen';
 import PatientDashboard from './PatientScreens/PatientDashboard';
 import CalendarScreen from './PatientScreens/Calendar';
 import ReminderScreen from './PatientScreens/ReminderScreen';
@@ -38,10 +37,9 @@ export const MainNavigation = () => {
   return(
     
     <SharedStateContext.Provider value={{ sharedState, setSharedState }}>        
-      <Stack.Navigator initialRouteName="SplashScreen">
+      <Stack.Navigator initialRouteName="GetStarted">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
-     <Stack.Screen name="WelcomeScreen" component={WelcomeScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="CalendarScreen" component={CalendarScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="ReminderScreen" component={ReminderScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="MindGameScreen" component={MindGamesScreen}  options={{headerShown: false}}/>
@@ -61,7 +59,7 @@ export const MainNavigation = () => {
      <Stack.Screen name="Profile" component={Profile}  options={{headerShown: false}}/>
      <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="VerificationCodeInput " component={VerificationCodeInput }  options={{headerShown: false}}/>
+     <Stack.Screen name="VerificationCodeInput" component={VerificationCodeInput }  options={{headerShown: false}}/>
      <Stack.Screen name="CountryPickerTextInput" component={CountryPickerTextInput}  options={{headerShown: false}}/>
      </Stack.Navigator>
      </SharedStateContext.Provider>
