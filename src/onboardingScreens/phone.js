@@ -24,10 +24,9 @@ const CountryPickerTextInput = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const {sharedState, setSharedState} = useContext(SharedStateContext);
     const [validNumber, setValidNumber] = useState(false)
-    const {dark,changeIntoDark}= useContext(ChangeIntoDarkMode)
-
-    // const [isloading,setIsloading] = useState(false)
-    
+    const [isloading,setIsloading] = useState(false)
+     const [verificationId, setVerificationId] = useState('');
+     const [verificationCode, setVerificationCode] = useState('');
     const auth=firebaseaAuth;
     const  navigate =useNavigation();
     const countries = [
@@ -214,7 +213,7 @@ const CountryPickerTextInput = ({ navigation }) => {
                 </View>
                 <View style={{height:242}}></View>
             </View> 
-        </SafeAreaView>
+            </SafeAreaView>
     );
 };
 
