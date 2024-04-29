@@ -213,7 +213,7 @@ const CountryPickerTextInput = ({ navigation }) => {
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{height:300}}></View>
+                <View style={{height:350}}></View>
             </View> 
         </SafeAreaView>
     );
