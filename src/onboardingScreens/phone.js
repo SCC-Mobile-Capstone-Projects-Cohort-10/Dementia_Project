@@ -21,8 +21,8 @@ const CountryPickerTextInput = ({ navigation }) => {
     const {sharedState, setSharedState} = useContext(SharedStateContext);
     const [validNumber, setValidNumber] = useState(false)
     const [isloading,setIsloading] = useState(false)
-    // const [verificationId, setVerificationId] = useState('');
-    // const [verificationCode, setVerificationCode] = useState('');
+     const [verificationId, setVerificationId] = useState('');
+     const [verificationCode, setVerificationCode] = useState('');
     const auth=firebaseaAuth;
     const  navigate =useNavigation();
     const countries = [
@@ -158,7 +158,7 @@ const CountryPickerTextInput = ({ navigation }) => {
         <SafeAreaView>
             <View style={{ marginTop: 60 }}>
                 <Text style={{ color: "grey", textAlign: 'center', fontSize: 20, height: 40 }}>Welcome</Text>
-                <View style={{ height: 90 }}>
+                <View style={{ height: 60 }}>
                     <Text style={{ textAlign: 'center', fontSize: 20 }}>Enter your</Text>
                     <Text style={{ textAlign: 'center', fontSize: 20 }}>mobile number</Text>
                 </View>
@@ -204,7 +204,7 @@ const CountryPickerTextInput = ({ navigation }) => {
                         </View>
                     </View>
                 </Modal>
-                <View style={{ height: 80 }}></View>
+                <View style={{ height: 20 }}></View>
                 <View style={styles.buttomtext}>
                     <TouchableOpacity onPress={handlesubmit} disabled={!selectedCountry || !phoneNumber}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>

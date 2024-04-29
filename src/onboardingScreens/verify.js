@@ -39,13 +39,13 @@ const VerificationCodeInput = ({ navigation, route }) => {
   return (
     <SafeAreaView>
     <View style={{marginTop:50}}>
-        <View style={{height:30}}></View>
+        <View style={{height:10}}></View>
         <Text style={{textAlign:'center',color:'grey',fontSize:20}}>Verification</Text>
         <View style={{height:30}}></View>
         <Text style={{textAlign:'center',fontSize:20}}>We send you an </Text>
         <Text style={{textAlign:'center',fontSize:20}}>SMS coded </Text>
         <Text style={{textAlign:'center',fontSize:20}}>{sharedState}</Text>
-        <View style={{height:65}}></View>
+        <View style={{height:10}}></View>
       <View style={styles.codeContainer}>
         {sharedState?.map((item, index) => (
           <TextInput
@@ -61,7 +61,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
           />
         ))}
       </View>
-      <View style={{height:100}}></View>
+      <View style={{height:10}}></View>
       <View style={styles.buttonclick}>
         <TouchableOpacity onPress={handleVerify}>
       <Text style={{textAlign:'center',fontSize:22,color:'black'}}>Next</Text>
