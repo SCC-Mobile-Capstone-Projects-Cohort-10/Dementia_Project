@@ -29,7 +29,7 @@ const PatientDashboard = ({navigation}) => {
   
   const mindGamesData = [
     { id: '1', name: 'Sudoku', image: require('../img/sudoku.png') },
-    { id: '2', name: 'BrainTeaserScreen ', image: require('../img/puzzle.png') },
+    { id: '2', name: 'BrainTeaser', image: require('../img/puzzle.png') },
     { id: '3', name: 'Memory Game', image: require('../img/mindgame.jpg') },
   ];
 
@@ -93,7 +93,7 @@ const PatientDashboard = ({navigation}) => {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     
-        <Text style={styles.calendarTitle}>Multimedia Hub</Text>
+        <Text style={styles.sectionTitle}>Multimedia Hub</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <TouchableOpacity onPress={() => handleNavigation('CalendarScreen')}>
           <View style={styles.card}>
@@ -117,7 +117,7 @@ const PatientDashboard = ({navigation}) => {
          
 
           {/* Mind Games */}
-          <Text style={styles.subTitle}>Mind Stimulating Games</Text>
+          <Text style={styles.sectionTitle}>Mind Stimulating Games</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {mindGamesData.map(game => (
         <MindGameCard
@@ -129,7 +129,7 @@ const PatientDashboard = ({navigation}) => {
   </ScrollView>
           
           {/* Medication Management */}
-          <Text style={styles.subTitle}>Medication Management</Text>
+          <Text style={styles.sectionTitle}>Medication Management</Text>
           <View style={styles.medicationsCard}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {medicationsData.map((medication) => (
@@ -144,6 +144,7 @@ const PatientDashboard = ({navigation}) => {
           </View>
 
            {/* Gallery Section */}
+           <ScrollView contentContainerStyle={styles.galleryScrollView}>
            <Text style={styles.sectionTitle}>Your Gallery</Text>
            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {memoriesData.map((memory) => (
@@ -154,7 +155,7 @@ const PatientDashboard = ({navigation}) => {
             ))}
           </ScrollView> 
         </ScrollView>
-      </SafeAreaView>
+        </ScrollView>
       
       {/* Navigation Bar */}
       <View style={styles.bottomContainer}>
@@ -170,9 +171,10 @@ const PatientDashboard = ({navigation}) => {
         <TouchableOpacity onPress={() => handleNavigation('Settings')}>
           <Icon name="settings" size={30} color={activeTab === 'Settings' ? '#000' : '#fff'} />
         </TouchableOpacity>
-
       </View>
+      </SafeAreaView>
     </View>
+  
   );
 };
 
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: '#FFFFFF', 
   },
   topHeader: {
     flexDirection: 'row',
@@ -187,6 +190,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     paddingTop: 10,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20, 
+    marginLeft: 10, 
   },
   greetingText: {
     fontSize: 20,
@@ -245,11 +254,6 @@ const styles = StyleSheet.create({
     minHeight: 100,
     maxHeight: 140,
   },
-  subTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop:20,
-  },
   cardContent: {
     fontSize: 14,
     marginBottom: 5,
@@ -268,12 +272,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-   // paddingHorizontal: 16,
-    marginTop:20,
   },
   cardContainer: {
     width: 120, 
@@ -305,6 +303,9 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     paddingHorizontal: 16,
   },
+  galleryScrollView: {
+    marginBottom: 30, 
+  }
 });
 
 export default PatientDashboard;

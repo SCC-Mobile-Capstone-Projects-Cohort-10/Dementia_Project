@@ -3,7 +3,6 @@ import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import * as Notifications from 'expo-notifications'; 
-import NotificationScreen from './NotificationScreen';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
 
@@ -16,6 +15,14 @@ const PatientLocation = ({navigation}) => {
     navigation.navigate(tab);
   };
 
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
 
     const handleShareLocation = async () => {
         // Simulate sharing location
@@ -84,9 +91,10 @@ const PatientLocation = ({navigation}) => {
           <Marker coordinate={userLocation} title="Patient's Location" />
         </MapView>
       )}
-      <TouchableOpacity style={styles.shareButton} onPress={() => console.log('Location shared')}>
-        <Text style={styles.shareButtonText}>Share Location</Text>
+     <TouchableOpacity style={styles.shareButton} onPress={handleShareLocation}>
+  <Text style={styles.shareButtonText}>Share Location</Text>
       </TouchableOpacity>
+
        <View style={styles.bottomContainer}>
       <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
         <Icon name="home" size={30} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />

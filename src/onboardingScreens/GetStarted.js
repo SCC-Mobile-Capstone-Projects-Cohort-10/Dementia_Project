@@ -5,7 +5,7 @@ import { ChangeIntoDarkMode } from '../themecontext';
 
 const GetStarted = ({ navigation }) => {
   const handleOnPressLetsGo = () => {
-    navigation.navigate('CountryPickerTextInput');
+    navigation.navigate('Profile');
   };
   const {dark} = useContext(ChangeIntoDarkMode)
 

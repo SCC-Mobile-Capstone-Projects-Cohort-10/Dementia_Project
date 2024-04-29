@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -73,7 +73,7 @@ const MedicationManagementScreen = ({ navigation }) => {
     Alert.alert("Confirm Deletion", "Are you sure you want to delete this medication?", [
       { text: "Cancel", style: "cancel" },
       { text: "OK", onPress: () => {
-        Notifications.cancelScheduledNotificationAsync(medications[index].id.toString()); // Cancel the notification
+        Notifications.cancelScheduledNotificationAsync(medications[index].id.toString());
         const updatedMedications = medications.filter((_, i) => i !== index);
         setMedications(updatedMedications);
       }}
@@ -81,10 +81,10 @@ const MedicationManagementScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Icon name="arrow-back" size={24} color="black" />
+          <Icon name="arrow-back" size={30} color="black" />
         </TouchableOpacity>
         <Text style={styles.title}>Medication Schedule</Text>
       </View>
@@ -93,8 +93,10 @@ const MedicationManagementScreen = ({ navigation }) => {
         placeholder="Add new medication"
         value={newMedication}
         onChangeText={setNewMedication}
+        placeholderTextColor="#555"
+        clearButtonMode="while-editing"
       />
-      <Button title="Add Medication" onPress={addMedication} />
+      <Button title="Add Medication" color="#007BFF" onPress={addMedication} />
       {medications.map((med, index) => (
         <View key={index} style={styles.medicationItem}>
           <TouchableOpacity onPress={() => {
@@ -105,7 +107,7 @@ const MedicationManagementScreen = ({ navigation }) => {
             <Text style={styles.medicationTime}>{med.time.toLocaleTimeString()}</Text>
             <Text style={styles.medicationStatus}>{med.taken ? 'Taken' : 'Not Taken'}</Text>
           </TouchableOpacity>
-          <Button title="Delete" onPress={() => deleteMedication(index)}  style={[styles.deleteMedication, { backgroundColor: '#600060' }]}/>
+          <Button title="Delete" color="#FF6347" onPress={() => deleteMedication(index)} />
         </View>
       ))}
       {showPicker && (
@@ -117,13 +119,14 @@ const MedicationManagementScreen = ({ navigation }) => {
           onChange={handleTimeSelect}
         />
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F5F5F5',
     padding: 10,
   },
   headerContainer: {
@@ -131,38 +134,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+  backButton: {
+    marginRight: 10,
+  },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginLeft: 10,
   },
   input: {
-    height: 40,
+    fontSize: 18,
+    height: 50,
     marginVertical: 12,
-    borderWidth: 1, 
+    borderWidth: 1,
+    borderColor: '#ccc',
     padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
   },
   medicationItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
     borderBottomWidth: 1,
     borderColor: '#e0e0e0',
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    marginVertical: 5,
   },
   medicationName: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   medicationTime: {
-    fontSize: 14,
-    color: '#888888',
+    fontSize: 16,
+    color: '#555',
   },
   medicationStatus: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: '500',
     color: '#009688',
-  },
-  deleteMedication:{
-    backgroundColor:'yellow'
   },
 });
 
