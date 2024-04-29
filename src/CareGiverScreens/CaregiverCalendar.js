@@ -90,14 +90,14 @@ export default function CaregiverCalendar({ navigation }) {
         />
       </View>
       <View style={styles.bottomContainer}>
-        <TouchableOpacity onPress={() => handleNavigation('PatientDashboard')}>
-          <Icon name="home" size={26} color={activeTab === 'PatientDashboard' ? '#000' : '#fff'} />
+        <TouchableOpacity onPress={() => handleNavigation('CaregiverDashboard')}>
+          <Icon name="home" size={26} color={activeTab === 'CaregiverDashboard' ? '#000' : '#fff'} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
-          <Icon name="call" size={26} color={activeTab === 'EmergencyCall' ? '#000' : '#fff'} />
+        <TouchableOpacity onPress={() => handleNavigation('CaregiverEmergency')}>
+          <Icon name="call" size={26} color={activeTab === 'CaregiverEmergency' ? '#000' : '#fff'} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleNavigation('CalendarScreen')}>
-          <Icon name="event" size={26} color={activeTab === 'CalendarScreen' ? '#000' : '#fff'} />
+        <TouchableOpacity onPress={() => handleNavigation('CaregiverCalendar')}>
+          <Icon name="event" size={26} color={activeTab === 'CaregiverCalendar' ? '#000' : '#fff'} />
         </TouchableOpacity>
       </View>
     </View>
