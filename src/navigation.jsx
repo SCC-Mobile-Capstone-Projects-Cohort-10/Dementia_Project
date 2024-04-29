@@ -38,7 +38,7 @@ export const MainNavigation = () => {
   return(
     
     <SharedStateContext.Provider value={{ sharedState, setSharedState }}>        
-      <Stack.Navigator initialRouteName="Profile">
+      <Stack.Navigator initialRouteName="SplashScreen">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
      <Stack.Screen name="CalendarScreen" component={CalendarScreen}  options={{headerShown: false}}/>
