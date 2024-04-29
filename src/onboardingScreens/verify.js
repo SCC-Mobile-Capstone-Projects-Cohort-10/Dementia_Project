@@ -65,6 +65,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
           />
         ))}
       </View>
+      <View style={{height:10}}></View>
       <View style={{height: verticalScale(60)}}></View>
       <View style={styles.buttonclick}>
         <TouchableOpacity onPress={handleVerify}>

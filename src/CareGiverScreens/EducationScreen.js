@@ -108,7 +108,7 @@ const EducationScreen = ({navigation}) => {
  
 
   return (
-    <View style={{ flex: 1,padding: 16,backgroundColor:dark?'white':'black'}}>
+    <View style={{ flex: 1,padding: 16,backgroundColor:dark?'black':'white'}}>
     <ScrollView>
       {resources.map((resource, index) => (
         <TouchableOpacity

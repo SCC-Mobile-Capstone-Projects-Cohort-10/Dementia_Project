@@ -1,5 +1,5 @@
 import React,  { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet,  TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet,  TouchableOpacity,SafeAreaView} from 'react-native';
 import { ChangeIntoDarkMode } from '../themecontext';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 
@@ -17,7 +17,7 @@ const SettingsScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{flex: 1,backgroundColor:dark?'black':'white'}}>
       <View style={styles.mainContent}>
         <TouchableOpacity style={styles.button} onPress={handleLogout}>
           <Text style={styles.buttonText}>Logout</Text>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     backgroundColor: '#d8bfd8',
-    paddingVertical: 15, // Increased padding for better touchability
+    paddingVertical: 15, 
   },
 });
 

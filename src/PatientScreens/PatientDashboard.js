@@ -1,7 +1,8 @@
-import React,  { useState, useEffect } from 'react';
+import React,  { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet,  TouchableOpacity, Image, ScrollView, Button, SafeAreaView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
+import { ChangeIntoDarkMode } from '../themecontext';
 
 
 
@@ -24,6 +25,7 @@ const PatientDashboard = ({navigation}) => {
     setActiveTab(tab);
     navigation.navigate(tab);
   };
+  const {dark} = useContext(ChangeIntoDarkMode)
 
 
   
@@ -84,32 +86,32 @@ const PatientDashboard = ({navigation}) => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={{flex: 1,flexDirection: 'column',backgroundColor:dark?'black':'white'}}>
        {/* Top Header with Icons */}
        <View style={styles.topHeader}>
-        <Text style={styles.greetingText}>Hi, Welcome 👋</Text>
-        <Icon name="notifications" size={30} color="#333" onPress={() => {}} />
+        <Text style={{ fontSize: 20,fontWeight: 'bold',color:dark?'white':'black',}}>Hi, Welcome 👋</Text>
+        <Icon name="notifications" size={30} onPress={() => {}} style={{color:dark?'white':'black'}}/>
       </View>
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     
-        <Text style={styles.sectionTitle}>Multimedia Hub</Text>
+        <Text style={{fontSize: 18,fontWeight: 'bold',marginTop: 20, marginLeft: 10,color:dark?"white":'black'}}>Multimedia Hub</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <TouchableOpacity onPress={() => handleNavigation('CalendarScreen')}>
           <View style={styles.card}>
-            <Text style={styles.cardText}>Calendar</Text>
+            <Text style={{fontSize: 18,color:dark?'white':'black',fontWeight: 'bold',marginBottom: 5}}>Calendar</Text>
             <Icon name="event" size={34} color="#6F4E37" /> 
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('RecordingScreen')}>
           <View style={styles.card}>
-            <Text style={styles.cardText}>Recording</Text>
+            <Text style={{fontSize: 18,color:dark?'white':'black',fontWeight: 'bold',marginBottom: 5}}>Recording</Text>
             <Icon name="mic" size={34} color="#6F4E37" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigation('EmergencyCall')}>
           <View style={styles.card}>
-            <Text style={styles.cardText}>Make Call</Text>
+            <Text style={{fontSize: 18,color:dark?'white':'black',fontWeight: 'bold',marginBottom: 5}}>Make Call</Text>
             <Icon name="call" size={34} color="#6F4E37" />
           </View>
         </TouchableOpacity>
@@ -117,7 +119,7 @@ const PatientDashboard = ({navigation}) => {
          
 
           {/* Mind Games */}
-          <Text style={styles.sectionTitle}>Mind Stimulating Games</Text>
+          <Text style={{fontSize: 18,fontWeight: 'bold',marginTop: 20,marginLeft: 10,color:dark?'white':'dark'}}>Mind Stimulating Games</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {mindGamesData.map(game => (
         <MindGameCard
@@ -129,7 +131,7 @@ const PatientDashboard = ({navigation}) => {
   </ScrollView>
           
           {/* Medication Management */}
-          <Text style={styles.sectionTitle}>Medication Management</Text>
+          <Text style={{ fontSize: 18,fontWeight: 'bold',marginTop: 20, marginLeft: 10,color:dark?'white':black}}>Medication Management</Text>
           <View style={styles.medicationsCard}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {medicationsData.map((medication) => (
@@ -145,7 +147,7 @@ const PatientDashboard = ({navigation}) => {
 
            {/* Gallery Section */}
            <ScrollView contentContainerStyle={styles.galleryScrollView}>
-           <Text style={styles.sectionTitle}>Your Gallery</Text>
+           <Text style={{fontSize: 18,fontWeight: 'bold',marginTop: 20,marginLeft: 10,color:dark?'white':'black'}}>Your Gallery</Text>
            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {memoriesData.map((memory) => (
               <TouchableOpacity key={memory.id} style={styles.cardContainer} onPress={handleGalleryPress}>

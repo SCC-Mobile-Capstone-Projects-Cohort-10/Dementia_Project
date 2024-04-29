@@ -38,7 +38,7 @@ export const MainNavigation = () => {
   return(
     
     <SharedStateContext.Provider value={{ sharedState, setSharedState }}>        
-      <Stack.Navigator initialRouteName="GetStarted">
+      <Stack.Navigator initialRouteName="Profile">
     <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="GetStarted" component={GetStarted}  options={{headerShown: false}}/>
      <Stack.Screen name="CalendarScreen" component={CalendarScreen}  options={{headerShown: false}}/>
@@ -61,7 +61,7 @@ export const MainNavigation = () => {
      <Stack.Screen name="Settings" component={SettingsScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="RecordingScreen" component={RecordingScreen}  options={{headerShown: false}}/>
      <Stack.Screen name="ReminderListScreen" component={ReminderListScreen}  options={{headerShown: false}}/>
-     <Stack.Screen name="VerificationCodeInput " component={VerificationCodeInput }  options={{headerShown: false}}/>
+     <Stack.Screen name="VerificationCodeInput" component={VerificationCodeInput }  options={{headerShown: false}}/>
      <Stack.Screen name="CountryPickerTextInput" component={CountryPickerTextInput}  options={{headerShown: false}}/>
      </Stack.Navigator>
      </SharedStateContext.Provider>
