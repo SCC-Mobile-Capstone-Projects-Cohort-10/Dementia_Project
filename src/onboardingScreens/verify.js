@@ -12,6 +12,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
   const navigate = useNavigation()
   const {dark} = useContext(ChangeIntoDarkMode)
 
+
   const handleChangeText = (text, index) => {
     if (text.length <= 1) {
       const newCode = [...code];
@@ -46,10 +47,11 @@ const VerificationCodeInput = ({ navigation, route }) => {
         <View style={{height: verticalScale(30), width: scale(20)}}></View>
         <Text style={{textAlign:'center',color:'grey',fontSize:20}}>Verification</Text>
         <View style={{height: verticalScale(30)}}></View>
+        <View style={{height: verticalScale(25)}}></View>
         <Text style={{textAlign:'center',fontSize:20,color:dark?'white':'black' }}>We send you an </Text>
         <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>SMS coded </Text>
         <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>{sharedState}</Text>
-        <View style={{height: verticalScale(25)}}></View>
+        <View style={{height: verticalScale(65)}}></View>
       <View style={styles.codeContainer}>
         {sharedState?.map((item, index) => (
           <TextInput
