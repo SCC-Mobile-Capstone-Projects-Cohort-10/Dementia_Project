@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 279,
+    width: 359,
   },
   menuButtonText: {
     fontSize: 16,

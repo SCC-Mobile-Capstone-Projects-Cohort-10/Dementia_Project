@@ -131,7 +131,7 @@ const PatientDashboard = ({navigation}) => {
   </ScrollView>
           
           {/* Medication Management */}
-          <Text style={{ fontSize: 18,fontWeight: 'bold',marginTop: 20, marginLeft: 10,color:dark?'white':black}}>Medication Management</Text>
+          <Text style={{ fontSize: 18,fontWeight: 'bold',marginTop: 20, marginLeft: 10,color:dark?'white':'black'}}>Medication Management</Text>
           <View style={styles.medicationsCard}>
             <ScrollView showsVerticalScrollIndicator={false}>
               {medicationsData.map((medication) => (
