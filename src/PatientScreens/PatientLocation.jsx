@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import * as Notifications from 'expo-notifications'; 
 import { MaterialIcons as Icon } from '@expo/vector-icons';
+import { ChangeIntoDarkMode } from '../themecontext';
 
 
 const PatientLocation = ({navigation}) => {
 
   const [activeTab, setActiveTab] = useState('PatientLocation');
+  const {dark} = useContext(ChangeIntoDarkMode)
 
   const handleNavigation = (tab) => {
     setActiveTab(tab);
@@ -77,7 +79,7 @@ const PatientLocation = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{flex: 1,padding: 16,paddingBottom: 50,backgroundColor:dark?'black':'white'}}>
       {userLocation && (
         <MapView
           style={styles.map}

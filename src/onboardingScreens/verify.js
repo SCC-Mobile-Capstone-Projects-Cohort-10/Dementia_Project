@@ -12,6 +12,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
   const navigate = useNavigation()
   const {dark} = useContext(ChangeIntoDarkMode)
 
+
   const handleChangeText = (text, index) => {
     if (text.length <= 1) {
       const newCode = [...code];
@@ -37,7 +38,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
     }
   };
   useEffect(() => {
-    // setCode(sharedState)
+     setCode(sharedState)
   }, [sharedState]);
   console.log("Shared state", sharedState)
   return (
@@ -46,6 +47,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
         <View style={{height: verticalScale(30), width: scale(20)}}></View>
         <Text style={{textAlign:'center',color:'grey',fontSize:20}}>Verification</Text>
         <View style={{height: verticalScale(30)}}></View>
+        <View style={{height: verticalScale(25)}}></View>
         <Text style={{textAlign:'center',fontSize:20,color:dark?'white':'black' }}>We send you an </Text>
         <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>SMS coded </Text>
         <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>{sharedState}</Text>
@@ -66,7 +68,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
         ))}
       </View>
       <View style={{height:10}}></View>
-      <View style={{height: verticalScale(60)}}></View>
+      <View style={{height: verticalScale(10)}}></View>
       <View style={styles.buttonclick}>
         <TouchableOpacity onPress={handleVerify}>
       <Text style={{textAlign:'center',fontSize:22,color:'black'}}>Next</Text>

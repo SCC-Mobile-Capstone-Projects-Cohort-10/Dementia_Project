@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Image } from 'react-native';
 import { MaterialIcons as Icon } from '@expo/vector-icons';
 import { Video } from 'expo-av'; 
+import { ChangeIntoDarkMode } from '../themecontext';
 
 const EducationScreen = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [currentResource, setCurrentResource] = useState(null);
+    const {dark} = useContext(ChangeIntoDarkMode)
    
    
     const [activeTab, setActiveTab] = useState('EducationScreen');
@@ -106,7 +108,7 @@ const EducationScreen = ({navigation}) => {
  
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1,padding: 16,backgroundColor:dark?'black':'white'}}>
     <ScrollView>
       {resources.map((resource, index) => (
         <TouchableOpacity
