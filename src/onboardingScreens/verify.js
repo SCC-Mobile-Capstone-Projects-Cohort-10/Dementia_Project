@@ -51,7 +51,7 @@ const VerificationCodeInput = ({ navigation, route }) => {
         <Text style={{textAlign:'center',fontSize:20,color:dark?'white':'black' }}>We send you an </Text>
         <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>SMS coded </Text>
         <Text style={{textAlign:'center',fontSize:20 ,color:dark?'white':'black'}}>{sharedState}</Text>
-        <View style={{height: verticalScale(65)}}></View>
+        <View style={{height: verticalScale(15)}}></View>
       <View style={styles.codeContainer}>
         {sharedState?.map((item, index) => (
           <TextInput
