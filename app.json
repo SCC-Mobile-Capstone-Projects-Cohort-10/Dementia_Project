@@ -7,9 +7,9 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#d8bfd8"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,14 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-  
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#d8bfd8"
+      },
+      "package": "com.makulah.DementiaCareApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "990239fe-07fc-40bb-a8a9-4894814c150d"
+      }
     }
-    
   }
 }
