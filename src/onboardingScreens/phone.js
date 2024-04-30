@@ -99,37 +99,37 @@ const CountryPickerTextInput = ({ navigation }) => {
         setValidNumber(true);
         
     };
-    // const handlesubmit = async () => {
-    //     if (validatePhoneNumber()) {
-    //         console.log('form submitted', phoneNumber)
+    const handlesubmit = async () => {
+        if (validatePhoneNumber()) {
+            console.log('form submitted', phoneNumber)
     
-    //         try {
-    //             const response = await signInWithPhoneNumber(getAuth(),phoneNumber)
-    //             console.log(response)
-    //             console.log('your now signed in')
-    //             showMessage({
-    //                 message: 'phone-number successfully',
-    //                 description: 'your now registered phone-number',
-    //                 type: 'success',
-    //                 icon: 'success',
-    //                 duration: 3000
-    //             })
-    //             navigation.navigate('VerificationCodeInput')
-    //         } catch (error) {
-    //             console.log(error)
-    //             showMessage({
-    //                 message: "fail to register your phone-number",
-    //                 description: error.code.toString(),
-    //                 type: 'danger',
-    //                 icon: 'danger',
-    //                 duration: 3000
-    //             })
-    //         } finally {
-    //             setIsloading(false)
-    //         }
+            try {
+                const response = await signInWithPhoneNumber(getAuth(),phoneNumber)
+                console.log(response)
+                console.log('your now signed in')
+                showMessage({
+                    message: 'phone-number successfully',
+                    description: 'your now registered phone-number',
+                    type: 'success',
+                    icon: 'success',
+                    duration: 3000
+                })
+                navigation.navigate('VerificationCodeInput')
+            } catch (error) {
+                console.log(error)
+                showMessage({
+                    message: "fail to register your phone-number",
+                    description: error.code.toString(),
+                    type: 'danger',
+                    icon: 'danger',
+                    duration: 3000
+                })
+            } finally {
+                setIsloading(false)
+            }
     
-    //     }
-    // }
+        }
+    }
     
 
     useEffect(() =>{
@@ -169,7 +169,7 @@ const CountryPickerTextInput = ({ navigation }) => {
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>confirmation code</Text>
                 </View>
                 <View style={{height: verticalScale(25)}}></View>
-                <View style={{ flexDirection: 'row',alignItems: 'center',borderWidth: 1,borderColor:dark?'white':'black',borderRadius: 5,paddingHorizontal: moderateScale(1),marginHorizontal: moderateScale(17),height: verticalScale(45),}}>
+                <View style={{ flexDirection: 'row',alignItems: 'center',borderWidth: 1,borderColor:dark?'white':'black',borderRadius: 5,paddingHorizontal: moderateScale(1),marginHorizontal: moderateScale(17),height: verticalScale(55),}}>
                     <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.iconContainer}>
                         <AntDesign name="caretdown" size={24} style={{color:dark?'white':'black'}} />
                     </TouchableOpacity>
