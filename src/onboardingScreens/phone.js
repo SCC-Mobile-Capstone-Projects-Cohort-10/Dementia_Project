@@ -169,14 +169,9 @@ const CountryPickerTextInput = ({ navigation }) => {
                     <Text style={{ color: "grey", textAlign: 'center', fontSize: 20 }}>confirmation code</Text>
                 </View>
                 <View style={{height: verticalScale(25)}}></View>
-                <View style={{ flexDirection: 'row',alignItems: 'center',borderWidth: 1,borderColor:dark?'white':'black',borderRadius: 5,paddingHorizontal: moderateScale(1),marginHorizontal: moderateScale(17),height: verticalScale(55),}}>
-                    <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.iconContainer}>
-                        <AntDesign name="caretdown" size={24} style={{color:dark?'white':'black'}} />
-                    </TouchableOpacity>
-                    <Text style={{fontSize: 16,color:dark?'white':'black'}}>{selectedCountry ? selectedCountry.code : 'Country'}</Text>
-                    <Text style={{ flex: 1,marginLeft: moderateScale(10),fontSize: 16,color:dark?'white':'black'}}>{selectedCountry ? selectedCountry.name : 'Code'}</Text>
+                <View style={{ flexDirection: 'row',alignItems: 'center',borderWidth: 1,borderColor:dark?'white':'black',borderRadius: 5,paddingHorizontal: moderateScale(1),marginHorizontal: moderateScale(17),height: verticalScale(45),}}>
                     <TextInput
-                        style={{ flex: 1,marginLeft: moderateScale(-50),color:dark?'white':'black'}}
+                        style={{ flex: 1,marginLeft: moderateScale(50),color:dark?'white':'black'}}
                         placeholder="Enter your Phone Number"
                         value={phoneNumber}
                         onChangeText={setPhoneNumber}
@@ -207,9 +202,9 @@ const CountryPickerTextInput = ({ navigation }) => {
                         </View>
                     </View>
                 </Modal>
-                <View style={{ height: verticalScale(50)}}></View>
+                <View style={{ height: verticalScale(30)}}></View>
                 <View style={styles.buttomtext}>
-                    <TouchableOpacity onPress={validatePhoneNumber} disabled={!selectedCountry || !phoneNumber}>
+                    <TouchableOpacity onPress={validatePhoneNumber} disabled={!phoneNumber}>
                         <Text style={{ color: 'black', textAlign: 'center', fontSize: 20 }}>Next</Text>
                     </TouchableOpacity>
                 </View>
@@ -221,13 +216,12 @@ const CountryPickerTextInput = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     buttomtext: {
-        borderRadius: 20,
+        borderRadius: 10,
         textAlign: 'center',
         backgroundColor: '#d8bfd8',
-        // height: verticalScale(55),
-        paddingBottom: moderateScale(20),
-        marginHorizontal: moderateScale(50),
-        paddingTop: moderateScale(16),
+        // width:'100%',
+        paddingVertical: moderateScale(13),
+        marginHorizontal: moderateScale(20),
 
 
     },
