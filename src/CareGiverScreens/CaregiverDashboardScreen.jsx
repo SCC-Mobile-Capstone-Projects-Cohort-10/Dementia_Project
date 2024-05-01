@@ -60,7 +60,7 @@ const CaregiverDashboard = ({navigation}) => {
       <Text style={styles.headerText}>Hi, Welcome 👋</Text>
       <TouchableOpacity 
       style={styles.notificationIcon}
-      onPress={() => navigation.navigate('CaregiverNotificationScreen')}  
+      // onPress={() => navigation.navigate('NotificationScreen')}  
     >
       <Icon name="notifications" size={24} color="#fff" />
       <View style={styles.badge}>
@@ -130,8 +130,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#d8bfd8',
     paddingHorizontal: 15,
-    paddingVertical: 20,  
-    height: 60,  
+    paddingVertical: 27,   
   },
   headerText: {
     fontSize: 20,

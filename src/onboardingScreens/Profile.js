@@ -12,16 +12,13 @@ import * as FileSystem from 'expo-file-system';
 import { ChangeIntoDarkMode } from '../themecontext';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-
-
 export default function Profile({ navigation }) {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [image, setImage] = useState('https://images.pexels.com/photos/675920/pexels-photo-675920.jpeg?cs=srgb&dl=pexels-min-an-675920.jpg&fm=jpg');
   const [role, setRole] = useState('');
   const [menuVisible, setMenuVisible] = useState(false);
-  const {dark,changeIntoDark} = useContext(ChangeIntoDarkMode)
-
+  const { dark, changeIntoDark } = useContext(ChangeIntoDarkMode);
 
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
@@ -30,7 +27,6 @@ export default function Profile({ navigation }) {
     setRole(selectedRole);
     closeMenu();
   };
-
 
   const handleAddDoc = async () => {
     try {
@@ -47,7 +43,6 @@ export default function Profile({ navigation }) {
       alert("Failed to save profile. Please check your data and try again.");
     }
   };
-  
 
   const handleChangeProfile = async () => {
     try {
@@ -56,11 +51,11 @@ export default function Profile({ navigation }) {
         aspect: [1, 1],
         quality: 1,
         allowsEditing: false,
-        allowsMultipleSelection: true  
+        allowsMultipleSelection: true
       });
       if (!result.canceled) {
         if (result.assets && result.assets.length > 0) {
-          setImage(result.assets[0].uri);  
+          setImage(result.assets[0].uri);
           saveToStorage(result.assets[0].uri);
         }
       }
@@ -68,7 +63,6 @@ export default function Profile({ navigation }) {
       console.error(error);
     }
   };
-
 
   const saveToStorage = async (imgUri) => {
     try {
@@ -90,36 +84,34 @@ export default function Profile({ navigation }) {
     }
   };
 
-
   return (
     <Provider>
-      <View style={{ flex: 1,padding: 20,backgroundColor: '#FFFFFF',backgroundColor:dark?'black':'white'}}>
-        <View style={{height:20}}></View>
-        <View>
-          <MaterialIcons name='dark-mode' size={20} onPress={changeIntoDark} style={{color:dark?'white':'black'}}/>
-          <Text style={{color:dark?'white':'black'}}>Mode</Text>
+      <View style={[styles.container, { backgroundColor: dark ? 'black' : 'white' }]}>
+        <View style={{ height: 20 }}></View>
+        <View style={styles.modeContainer}>
+          <MaterialIcons name='dark-mode' size={20} onPress={changeIntoDark} style={{ color: dark ? 'white' : 'black' }} />
+          <Text style={{ color: dark ? 'white' : 'black' }}>Mode</Text>
         </View>
-        <Text style={styles.headerText}>Please fill in your profile details:</Text>
+        <Text style={[styles.headerText, { color: dark ? 'white' : 'black' }]}>Please fill in your profile details:</Text>
         <Pressable onPress={handleChangeProfile} style={styles.profileImagePressable}>
           <Image source={{ uri: image }} style={styles.profileImage} />
           <Feather name='camera' size={24} color="white" style={styles.cameraIcon} />
         </Pressable>
         <TextInput label='Name' value={name} onChangeText={setName} style={styles.input} />
         <TextInput label='Address' value={address} onChangeText={setAddress} style={styles.input} />
-            {/* Added view with style to create space */}
         <View style={styles.spacing} />
         <Menu
-        visible={menuVisible}
-        onDismiss={closeMenu}
-        anchor={
-          <TouchableRipple onPress={openMenu} style={styles.menuButton}>
-            <Text style={styles.menuButtonText}>{role || "Select Role"}</Text>
-          </TouchableRipple>
-        }
-      >
-        <Menu.Item onPress={() => selectRole('Patient')} title="Patient" />
-        <Menu.Item onPress={() => selectRole('Caregiver')} title="Caregiver" />
-      </Menu>
+          visible={menuVisible}
+          onDismiss={closeMenu}
+          anchor={
+            <TouchableRipple onPress={openMenu} style={styles.menuButton}>
+              <Text style={styles.menuButtonText}>{role || "Select Role"}</Text>
+            </TouchableRipple>
+          }
+        >
+          <Menu.Item onPress={() => selectRole('Patient')} title="Patient" />
+          <Menu.Item onPress={() => selectRole('Caregiver')} title="Caregiver" />
+        </Menu>
 
         <Button mode="contained" onPress={handleAddDoc} style={styles.button}>
           <Text style={styles.textStyle}>Submit Profile</Text>
@@ -135,10 +127,14 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FFFFFF',
   },
+  modeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   headerText: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign:'center'
+    textAlign: 'center'
   },
   profileImagePressable: {
     alignItems: 'center',
@@ -148,6 +144,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
     marginBottom: 20,
+    overflow: 'hidden',
   },
   profileImage: {
     width: '100%',
@@ -186,6 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   spacing: {
-    height: 20, 
+    height: 20,
   },
 });
