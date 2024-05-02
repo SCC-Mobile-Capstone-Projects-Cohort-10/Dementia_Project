@@ -64,6 +64,8 @@ const PatientLocation = ({navigation}) => {
       }
     } catch (error) {
       console.error('Error requesting location permission:', error);
+      setError('Error requesting location permission');
+
     }
   };
 
@@ -75,6 +77,7 @@ const PatientLocation = ({navigation}) => {
       setUserLocation({ latitude, longitude });
     } catch (error) {
       console.error('Error getting location:', error);
+      setError('Error getting location');
     }
   };
 
@@ -125,6 +128,7 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+    ...StyleSheet.absoluteFillObject,
     width: '100%',
   },
   shareButton: {
